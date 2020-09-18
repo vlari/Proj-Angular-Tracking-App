@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Clothing",
+        "description": "Article of clothes"
+    },
+    {
+        "name": "Technology",
+        "description": "Tech device"
+    },
+    {
+        "name": "Toys",
+        "description": "Toys for kids"
+    },
+    {
+        "name": "Health Care",
+        "description": "Health care product"
+    },
+    {
+        "name": "Supplies",
+        "description": "Misc supplies"
+    },
+    {
+        "name": "Food",
+        "description": "Food"
+    },
+    {
+        "name": "Sports",
+        "description": "Sport tools"
+    },
+    {
+        "name": "Tools",
+        "description": "Misc tools"
+    }
+]

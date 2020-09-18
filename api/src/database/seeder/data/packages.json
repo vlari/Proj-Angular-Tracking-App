@@ -1,0 +1,38 @@
+[
+    {
+        "trackingNumber": "P123456",
+        "date": "2020-01-01",
+        "weight": "6.10",
+        "service": "Amazon",
+        "AccountId": 1,
+        "StatusTypeId": 2,
+        "ContentTypeId": 3
+    },
+    {
+        "trackingNumber": "P123457",
+        "date": "2020-06-01",
+        "weight": "4.3",
+        "service": "Amazon",
+        "AccountId": 1,
+        "StatusTypeId": 3,
+        "ContentTypeId": 1
+    },
+    {
+        "trackingNumber": "P123454",
+        "date": "2020-06-12",
+        "weight": "10.4",
+        "service": "Amazon",
+        "AccountId": 1,
+        "StatusTypeId": 3,
+        "ContentTypeId": 6
+    },
+    {
+        "trackingNumber": "P123455",
+        "date": "2020-05-10",
+        "weight": "6.8",
+        "service": "Amazon",
+        "AccountId": 1,
+        "StatusTypeId": 1,
+        "ContentTypeId": 8
+    }
+]

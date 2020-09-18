@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Debit/Credit Card",
+        "description": "Payment with Debit/Credit card"
+    },
+    {
+        "name": "Paypal",
+        "description": "Payment with Paypal"
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Shipped",
+        "description": "The package has been shipped"
+    },
+    {
+        "name": "Stopped",
+        "description": "The package is currently stopped"
+    },
+    {
+        "name": "In Facility",
+        "description": "The package is available"
+    },
+    {
+        "name": "Delivered",
+        "description": "The package has been delivered"
+    }
+]

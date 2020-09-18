@@ -1,0 +1,17 @@
+[
+  {
+    "code": "A1",
+    "name": "John",
+    "lastName": "Doe",
+    "dateOfBirth": "1995-01-01",
+    "citizenId": "12345",
+    "email": "obed1355@gmail.com",
+    "address": "124 S Elkhart St Aurora, Colorado(CO), 80012",
+    "phone": "8003458383",
+    "isActive": true,
+    "DocumentTypeId": 1,
+    "FacilityId": 1,
+    "PaymentOptionId": 1,
+    "password": "pass1234"
+  }
+]

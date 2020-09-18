@@ -1,0 +1,23 @@
+{
+  "name": "proj-angular-tracking-app",
+  "version": "1.0.0",
+  "description": "Package Tracking app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlari/Proj-Angular-Tracking-App.git"
+  },
+  "keywords": [
+    "app"
+  ],
+  "author": "Obed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vlari/Proj-Angular-Tracking-App/issues"
+  },
+  "homepage": "https://github.com/vlari/Proj-Angular-Tracking-App#readme",
+  "dependencies": {}
+}
