@@ -4,11 +4,52 @@ const baseController = require('./baseController');
 const orderValidator = require('../../utils/requestValidators/orderValidator');
 const PaymentOption = require('../database/models/PaymentOption');
 
+const { Op } = require('sequelize');
+
 const { sendJsonResponse, sendErrorResponse } = baseController;
 
-exports.getOrders = (req, res, next) => {
+exports.getOrders = async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const startPage = (page - 1) * limit;
+    const endPage = page * limit;
+
+    const startDate = req.query.startDate || new Date().getDate() + 14;
+    const endDate = req.query.endDate || new Date();
+
+    const orders = await Order.findAndCountAll({
+      where: {
+        date: {
+          [Op.gte]: startDate,
+          [Op.lte]: endDate
+        }
+      },
+      include: {
+        model: Package,
+        required: true
+      },
+      offset: startPage,
+      limit: limit
+    });
+
+    const pagination = {};
+
+    if (endPage < packages.count) {
+      pagination.nextPage = {
+        page: page + 1,
+        limit
+      };
+    }
+
+    if (startPage > 0) {
+      pagination.previousPage = {
+        page: page - 1,
+        limit
+      };
+    }
     
+    sendJsonResponse(200, { data: orders.rows, count: orders.count, pagination }, res);
   } catch (error) {
    next(sendErrorResponse(500)); 
   }
@@ -26,10 +67,13 @@ exports.addOrder = async (req, res, next) => {
 
     const paymentOption = await PaymentOption.findByPk(req.user.dataValues.PaymentOptionId);
 
+    const orders = await Order.count();
+    const orderNumber = orders || 0;
+
     const order = {};
     order.AccountId = req.user.dataValues.id;
-    order.orderNumber = '12',
-    order.date = '2020-06-06';
+    order.orderNumber = `ON-${orderNumber + 1}`,
+    order.date = new Date(Date.now());
     order.paymentOption = paymentOption.dataValues.name;
     order.subtotal = req.body.subtotal;
     order.salesTax = req.body.salesTax;
@@ -43,7 +87,9 @@ exports.addOrder = async (req, res, next) => {
       }
     });
 
-    res.json({ message: 'helloooo' });
+    await registeredOrder.addPackages(packages);
+
+    sendJsonResponse(201, { data: registeredOrder }, res);
   } catch (error) {
     next(sendErrorResponse(500, error));
   }
