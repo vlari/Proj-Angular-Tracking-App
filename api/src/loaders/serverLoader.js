@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const chalk = require('chalk');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('../../utils/errorHandler');
+const cors = require('cors');
 
 const sequelize = require('./dbLoader');
 const seedDatabase = require('../database/seeder/seeder');
@@ -21,6 +22,8 @@ const router = require('../routes/index');
 const loadServer = async () => {
 
   const app = express();
+
+  app.use(cors());
 
   app.use(express.json());
 

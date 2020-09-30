@@ -1,0 +1,197 @@
+<div class="row center-xs">
+  <div class="col-xs-12 col-sm-10 col-md-8">
+    <div class="box">
+      <nb-card status="primary">
+        <nb-card-header>Sign Up</nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="name"
+                    nbInput
+                    fullwidth
+                    placeholder="Name"
+                    shape="semi-round"
+                    [status]=" (signupForm.get('name').touched ||
+                    signupForm.get('name').dirty) && !signupForm.get('name').valid ? 'danger' : 'basic'"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="lastName"
+                    nbInput
+                    fullwidth
+                    placeholder="Last Name"
+                    shape="semi-round"
+                    [status]=" (signupForm.get('lastName').touched ||
+                    signupForm.get('lastName').dirty) && !signupForm.get('lastName').valid ? 'danger' : 'basic'"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    nbInput
+                    placeholder="Pick Date"
+                    formControlName="dateOfBirth"
+                    [nbDatepicker]="dateTimePicker"
+                  />
+                  <nb-datepicker #dateTimePicker></nb-datepicker>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="documentTypes">
+                <div class="box">
+                  <nb-icon nbPrefix icon="person"></nb-icon>
+                  <nb-select
+                  shape="semi-round"
+                    formControlName="DocumentTypeId"
+                  >
+                    <nb-option
+                      *ngFor="let documentType of documentTypes"
+                      [value]="documentType.id"
+                      >{{ documentType.name }}</nb-option
+                    >
+                  </nb-select>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="citizenId"
+                    nbInput
+                    fullwidth
+                    placeholder="Citizen Id"
+                    shape="semi-round"
+                    [status]=" (signupForm.get('citizenId').touched ||
+                    signupForm.get('citizenId').dirty) && !signupForm.get('citizenId').valid ? 'danger' : 'basic'"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="phone"
+                    nbInput
+                    fullwidth
+                    placeholder="Phone"
+                    shape="semi-round"
+                    [status]=" (signupForm.get('phone').touched ||
+                    signupForm.get('phone').dirty) && !signupForm.get('phone').valid ? 'danger' : 'basic'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="email"
+                    nbInput
+                    fullwidth
+                    placeholder="Email"
+                    shape="semi-round"
+                    [status]="emailValidation"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="address"
+                    nbInput
+                    fullwidth
+                    placeholder="Address"
+                    shape="semi-round"
+                    [status]=" (signupForm.get('address').touched ||
+                    signupForm.get('address').dirty) && !signupForm.get('address').valid ? 'danger' : 'basic'"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row" formGroupName="passwordGroup">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="password"
+                    nbInput
+                    fullwidth
+                    placeholder="Password"
+                    shape="semi-round"
+                    nbPopover="Password must be 8 characters minimum"
+                    nbPopoverTrigger="hint"
+                    nbPopoverPlacement="bottom"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="confirmPassword"
+                    nbInput
+                    fullwidth
+                    placeholder="Confirm Password"
+                    shape="semi-round"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="paymentOptions">
+                <div class="box">
+                  <nb-icon nbPrefix icon="credit-card"></nb-icon>
+                  <nb-select
+                  shape="semi-round"
+                    formControlName="PaymentOptionId"
+                  >
+                    <nb-option
+                      *ngFor="let paymentOption of paymentOptions"
+                      [value]="paymentOption.id"
+                      >{{ paymentOption.name }}</nb-option
+                    >
+                  </nb-select>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="facilities">
+                <div class="box">
+                  <nb-icon nbPrefix icon="pin"></nb-icon>
+                  <nb-select
+                  shape="semi-round"
+                    formControlName="FacilityId"
+                  >
+                    <nb-option
+                      *ngFor="let facility of facilities"
+                      [value]="facility.id"
+                      >{{ facility.name }}</nb-option
+                    >
+                  </nb-select>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" nbButton hero status="primary">
+              Sign Up
+            </button>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

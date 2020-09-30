@@ -4,6 +4,7 @@
   "description": "Package Tracking app.",
   "main": "index.js",
   "scripts": {
+    "start:api": "npm run start:api",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

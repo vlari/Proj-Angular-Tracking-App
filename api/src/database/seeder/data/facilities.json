@@ -1,22 +1,27 @@
 [
     {
         "code": "F00",
+        "name": "Marine",
         "address": "[100 - 198] W Leopold St, Marine, IL 62061, US"
     },
     {
         "code": "F01",
+        "name": "Halifax",
         "address": "295 Plymouth Street, Halifax, MA 02338, US"
     },
     {
         "code": "F02",
+        "name": "Leominster",
         "address": "11 Jungle Road, Leominster, MA 01453, US"
     },
     {
         "code": "F03",
+        "name": "North Reading",
         "address": "72 Main Street, North Reading, MA 01864, US"
     },
     {
         "code": "F04",
+        "name": "Raynham",
         "address": "Paramount Drive, Raynham, MA 02767, US"
     }
 ]

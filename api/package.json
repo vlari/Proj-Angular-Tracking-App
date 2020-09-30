@@ -4,7 +4,7 @@
   "description": "Package Tracking API.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start:api": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,6 +19,7 @@
     "bcrypt": "^5.0.0",
     "chalk": "^4.1.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^17.2.1",

@@ -1,0 +1,11 @@
+@import "../themes";
+
+nb-layout-header {
+  background-color: nb-theme(color-primary-500);
+
+  button {
+    nb-icon {
+      color: #ffffff;
+    }
+  }
+}

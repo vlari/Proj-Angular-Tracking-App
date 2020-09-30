@@ -16,6 +16,8 @@ const DocumentType = sequelize.define('DocumentType', {
     type: DataTypes.STRING,
     allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 module.exports = DocumentType;

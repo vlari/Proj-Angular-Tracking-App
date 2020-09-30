@@ -1,0 +1,14 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <button nbButton ghost class="btn-menu" (click)="toggle()"><nb-icon icon="menu"></nb-icon></button>
+  </nb-layout-header>
+
+  <nb-sidebar tag="left">
+      <nb-menu [items]="items">
+      </nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column class="colored-column-warning">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

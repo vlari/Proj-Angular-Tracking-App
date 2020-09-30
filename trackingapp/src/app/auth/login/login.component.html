@@ -1,0 +1,46 @@
+<div class="row center-xs">
+  <div class="col-xs-4">
+    <div class="box">
+      <nb-card status="primary">
+        <nb-card-header>Login</nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="row center-xs">
+              <div class="col-xs-6">
+                <div class="box">
+                  <div class="field">
+                    <label for="code">Email</label>
+                    <input
+                      type="text"
+                      formControlName="email"
+                      nbInput
+                      fullwidth
+                      shape="semi-round"
+                      [status]=" (loginForm.get('email').touched ||
+                      loginForm.get('email').dirty) && !loginForm.get('email').valid ? 'danger' : 'basic'"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="password">Password</label>
+                    <input
+                      type="password"
+                      formControlName="password"
+                      nbInput
+                      fullwidth
+                      shape="semi-round"
+                      [status]=" (loginForm.get('password').touched ||
+                      loginForm.get('password').dirty) && !loginForm.get('password').valid ? 'danger' : 'basic'"
+                    />
+                  </div>
+                  <button type="submit" nbButton hero status="primary">
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

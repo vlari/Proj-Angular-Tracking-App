@@ -25,6 +25,18 @@ exports.signUp = async (req, res, next) => {
       );
     }
 
+    const isRegistered = await Account.findOne({
+      where: {
+        email: req.body.email
+      }
+    });
+
+    if (isRegistered) {
+      return next(
+        sendErrorResponse(400, 'Account already registered')
+      );
+    }
+
     const registeredAccounts = await Account.count();
     const account = req.body;
 
@@ -50,8 +62,16 @@ exports.signUp = async (req, res, next) => {
       expiresIn: '1h',
     });
 
-    sendCookie(201, token, res);
+    // With this approach the user
+    // would be logged in once the
+    // new account is created.
+    // sendCookie(201, token, res);
 
+    sendJsonResponse(
+      201,
+      { message: 'Account created successfully' },
+      res
+    );
   } catch (error) {
     next(sendErrorResponse(500, error));
   }
