@@ -18,6 +18,8 @@ const ContentType = sequelize.define('ContentType', {
     allowNull: false,
     defaultValue: 'Misc'
   }
+}, {
+  timestamps: false
 });
 
 module.exports = ContentType;

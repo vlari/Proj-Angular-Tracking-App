@@ -1,5 +1,6 @@
 const Package = require('../database/models/Package');
 const StatusType = require('../database/models/StatusType');
+const ContentType = require('../database/models/ContentType');
 const baseController = require('./baseController');
 const packageValidator = require('../../utils/requestValidators/packageValidator');
 
@@ -10,22 +11,29 @@ const { sendJsonResponse, sendErrorResponse } = baseController;
 exports.getPackages = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
+    const limit = parseInt(req.query.limit, 10) || 3;
     const startPage = (page - 1) * limit;
     const endPage = page * limit;
+
+    const sortField = req.query.sortField || 'trackingNumber';
+    const sortOrder = req.query.sortOrder || 'ASC';
 
     const statusQuery = req.query.status || {
       [Op.not]: 'Delivered',
     };
 
     const includeQuery = {
-      include: {
+      include: [{
         model: StatusType,
         required: true,
         where: {
           name: statusQuery,
-        },
+        }
       },
+      {
+        model: ContentType,
+        required: true
+      }]
     };
 
     const packageQuery = Object.assign(
@@ -40,9 +48,14 @@ exports.getPackages = async (req, res, next) => {
     const packages = await Package.findAndCountAll({
       where: packageQuery,
       ...includeQuery,
+      order: [
+        [sortField, sortOrder]
+      ],
       offset: startPage,
       limit: limit
     });
+
+    console.log('count', await Package.count({ where: packageQuery }));
 
     const pagination = {};
 

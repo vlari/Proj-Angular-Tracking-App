@@ -14,11 +14,21 @@ import {
   NbActionsModule,
   NbInputModule,
   NbDatepickerModule,
-  NbSelectModule, NbPopoverModule, NbToastrModule } from '@nebular/theme';
+  NbSelectModule,
+  NbPopoverModule,
+  NbToastrModule,
+  NbBadgeModule,
+  NbDialogModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { StoreModule } from '@ngrx/store';
+import { AuthModule} from './auth/auth.module';
+import { CoreModule } from './core/core.module';
+
+import { TableModule } from 'primeng/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -29,8 +39,10 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     NbThemeModule.forRoot({ name: 'corporate' }),
     NbLayoutModule,
+    AuthModule,
     NbEvaIconsModule,
     NbSidebarModule.forRoot(),
     NbButtonModule,
@@ -42,7 +54,12 @@ import { StoreModule } from '@ngrx/store';
     NbSelectModule,
     NbPopoverModule,
     NbToastrModule.forRoot(),
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    TableModule,
+    NbBadgeModule,
+    NbDialogModule.forRoot(),
+    CoreModule,
+    EffectsModule.forRoot([])
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

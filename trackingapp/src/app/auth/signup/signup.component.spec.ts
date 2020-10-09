@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
+import { AuthDataService } from '../auth-data.service';
 
 import { SignupComponent } from './signup.component';
 
@@ -8,7 +12,11 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignupComponent ]
+      imports: [ReactiveFormsModule, HttpClientModule],
+      declarations: [ SignupComponent ],
+      providers:[
+        AuthDataService,
+        NbToastrService]
     })
     .compileComponents();
   }));

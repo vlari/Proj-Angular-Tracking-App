@@ -5,19 +5,32 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ResetpasswordComponent } from './auth/resetpassword/resetpassword.component';
 
+
+// {
+//   path: '',
+//   pathMatch: 'full',
+//   loadChildren: () =>
+//     import('./package/package.module')
+//       .then(m => m.PackageModule)
+// },
+
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () =>
-      import('./package/package.module')
-        .then(m => m.PackageModule)
+    redirectTo: '/login'
   },
   {
     path: 'packages',
     loadChildren: () =>
       import('./package/package.module')
         .then(m => m.PackageModule)
+  },
+  {
+    path: 'orders',
+    loadChildren: () =>
+      import('./order/order.module')
+        .then(m => m.OrderModule)
   },
   {
     path: 'login',

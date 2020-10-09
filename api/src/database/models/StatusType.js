@@ -16,6 +16,8 @@ const StatusType = sequelize.define('StatusType', {
     type: DataTypes.STRING,
     allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 module.exports = StatusType;

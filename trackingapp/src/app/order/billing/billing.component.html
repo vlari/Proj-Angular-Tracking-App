@@ -1,0 +1,109 @@
+<div class="row center-xs">
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+    <div class="box">
+      <nb-card status="primary">
+        <nb-card-header>Order</nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+            <nb-card accent="primary">
+              <nb-card-body>
+                <div class="order-description">
+                  <nb-icon icon="calendar-outline"></nb-icon>Date
+                  <nb-icon icon="person-outline"></nb-icon>User
+                  <nb-icon icon="credit-card-outline"></nb-icon>Payment Option
+                </div>
+              </nb-card-body>
+            </nb-card>
+
+            <nb-card accent="primary">
+              <nb-card-body>
+                <p-table
+                  [value]="packages"
+                  [scrollable]="true"
+                  [columns]="columns"
+                >
+                  <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                      <col *ngFor="let col of columns" style="width: 150px" />
+                    </colgroup>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th width="20%">Tracking Number</th>
+                      <th width="12%">Date</th>
+                      <th width="8%">Weight</th>
+                      <th width="10%">Service</th>
+                      <th width="10%"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-package>
+                    <tr>
+                      <td>{{ package.trackingNumber }}</td>
+                      <td>{{ package.date }}</td>
+                      <td>{{ package.weight }}</td>
+                      <td>{{ package.service }}</td>
+                      <td>
+                        <button
+                          outline
+                          type="button"
+                          nbButton
+                          status="danger"
+                          (click)="onRemovePackage(package)"
+                          shape="round"
+                        >
+                          <nb-icon
+                            icon="close"
+                            [options]="{ animation: { type: 'pulse' } }"
+                          ></nb-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </nb-card-body>
+            </nb-card>
+
+            <div class="row end-xs">
+              <div class="col-xs-10 col-sm-4 col-md-4 col-lg-2">
+                <div class="box">
+                  <nb-card accent="primary">
+                    <nb-card-body>
+                      <input
+                        class="detail-result"
+                        nbInput
+                        status="basic"
+                        formControlName="subtotal"
+                      />
+                      <input
+                        class="detail-result"
+                        nbInput
+                        status="basic"
+                        formControlName="salesTax"
+                      />
+                      <input
+                        class="detail-result"
+                        nbInput
+                        status="basic"
+                        formControlName="total"
+                      />
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+
+            <div class="row center-xs">
+              <div class="col-xs">
+                <div class="box">
+                  <button type="submit" nbButton hero status="primary">
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

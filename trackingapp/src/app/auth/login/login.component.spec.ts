@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NbOverlayModule, NbOverlayService, NbToastrModule, NbToastrService } from '@nebular/theme';
+import { AuthDataService } from '../auth-data.service';
 
 import { LoginComponent } from './login.component';
 
@@ -8,7 +12,15 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [
+        ReactiveFormsModule,
+        HttpClientModule,
+        NbToastrModule.forRoot({}),
+      NbOverlayModule],
+      declarations: [ LoginComponent ],
+      providers:[
+        AuthDataService,
+        ]
     })
     .compileComponents();
   }));

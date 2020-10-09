@@ -5,6 +5,8 @@ import { debounceTime } from 'rxjs/operators';
 import { User } from '../../shared/models/user.model';
 import { NbToastrService } from '@nebular/theme';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { SystemService } from 'src/app/core/services/system.service';
 
 function isSamePassword(c: AbstractControl): {[key: string]: boolean} | null {
   const password = c.get('password');
@@ -24,44 +26,28 @@ function isSamePassword(c: AbstractControl): {[key: string]: boolean} | null {
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  documentTypes: DocumentType[];
-  paymentOptions: PaymentOptions[];
+  documentTypes: any;
+  paymentOptions: any;
   facilities: any;
   emailValidation;
 
   constructor(private fb: FormBuilder,
     private authDataService: AuthDataService,
     private toastrService: NbToastrService,
-    private router: Router) { }
+    private router: Router,
+    private systemService: SystemService) { }
 
   ngOnInit(): void {
 
-    // Replace this with the new version
-    // of forkJoin because forkJoin
-    // is deprecated.
-    this.authDataService.getDocumentTypes()
-      .subscribe(
-        (response: any) => {
-          this.documentTypes = response.data;
-        },
-        (error: any) => console.log(error)
-      );
-
-    this.authDataService.getPaymentOptions()
-      .subscribe(
-        (response: any) => {
-          this.paymentOptions = response.data;
-        },
-        (error: any) => console.log(error)
-      );
-
-    this.authDataService.getFacilities()
-      .subscribe(
-        (response: any) => {
-          this.facilities = response.data;
-        },
-        (error: any) => console.log(error)
-      );
+    forkJoin([
+      this.systemService.getDocumentTypes(),
+      this.systemService.getPaymentOptions(),
+      this.systemService.getFacilities()
+    ]).subscribe( ([documentResponse, paymentResponse, facilityResponse]) => {
+      this.documentTypes = documentResponse.data;
+      this.paymentOptions = paymentResponse.data;
+      this.facilities = facilityResponse.data;
+    });
 
     this.signupForm = this.fb.group({
       name: ['', Validators.required],

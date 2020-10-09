@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpError } from '../shared/models/http-error.model';
 import { catchError } from 'rxjs/operators';
+import { HttpCollectionResponse } from '../shared/models/http-collection-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,35 +14,35 @@ export class AuthDataService {
 
   constructor(private http: HttpClient) {}
 
-  getDocumentTypes(): Observable<DocumentType[]> {
-    return this.http.get<DocumentType[]>(
-      `${environment.baseUrl}/documenttypes`,
-      {
-        headers: new HttpHeaders({
-          Accept: 'application/json',
-        })
-      }
-    );
-  }
+  // getDocumentTypes(): Observable<HttpCollectionResponse<DocumentType>> {
+  //   return this.http.get<HttpCollectionResponse<DocumentType>>(
+  //     `${environment.baseUrl}/documenttypes`,
+  //     {
+  //       headers: new HttpHeaders({
+  //         Accept: 'application/json',
+  //       })
+  //     }
+  //   );
+  // }
 
-  getPaymentOptions(): Observable<PaymentOptions[]> {
-    return this.http.get<PaymentOptions[]>(
-      `${environment.baseUrl}/paymentoptions`,
-      {
-        headers: new HttpHeaders({
-          Accept: 'application/json',
-        })
-      }
-    );
-  }
+  // getPaymentOptions(): Observable<HttpCollectionResponse<PaymentOptions>> {
+  //   return this.http.get<HttpCollectionResponse<PaymentOptions>>(
+  //     `${environment.baseUrl}/paymentoptions`,
+  //     {
+  //       headers: new HttpHeaders({
+  //         Accept: 'application/json',
+  //       })
+  //     }
+  //   );
+  // }
 
-  getFacilities(): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/facilities`, {
-      headers: new HttpHeaders({
-        Accept: 'application/json',
-      })
-    });
-  }
+  // getFacilities(): Observable<HttpCollectionResponse<any>> {
+  //   return this.http.get<HttpCollectionResponse<any>>(`${environment.baseUrl}/facilities`, {
+  //     headers: new HttpHeaders({
+  //       Accept: 'application/json',
+  //     })
+  //   });
+  // }
 
   signUp(user: any): Observable<any | HttpError>{
     return this.http.post<any>(`${environment.baseUrl}/signup`, user, {

@@ -1,0 +1,167 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="box">
+      <nb-card status="primary">
+        <nb-card-header>Rate Calculator</nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="rateForm" (ngSubmit)="onCalculate()">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="merchValue"
+                    nbInput
+                    fullwidth
+                    placeholder="Merch Value"
+                    shape="semi-round"
+                    [status]="
+                      (rateForm.get('merchValue').touched ||
+                        rateForm.get('merchValue').dirty) &&
+                      !rateForm.get('merchValue').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                  <input
+                    type="text"
+                    formControlName="weight"
+                    nbInput
+                    fullwidth
+                    placeholder="Weight"
+                    shape="semi-round"
+                    [status]="
+                      (rateForm.get('weight').touched ||
+                        rateForm.get('weight').dirty) &&
+                      !rateForm.get('weight').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box dimensions" formGroupName="dimensions">
+                  <nb-card status="basic">
+                    <nb-card-body>
+                      <input
+                        type="text"
+                        formControlName="length"
+                        nbInput
+                        placeholder="Length"
+                        shape="semi-round"
+                        nbPopover="Length"
+                        nbPopoverTrigger="hint"
+                        nbPopoverPlacement="bottom"
+                        [status]="
+                          (rateForm.get('dimensions.length').touched ||
+                            rateForm.get('dimensions.length').dirty) &&
+                          !rateForm.get('dimensions.length').valid
+                            ? 'danger'
+                            : 'basic'
+                        "
+                      />
+                      X
+                      <input
+                        type="text"
+                        formControlName="width"
+                        nbInput
+                        placeholder="Width"
+                        shape="semi-round"
+                        nbPopover="Width"
+                        nbPopoverTrigger="hint"
+                        nbPopoverPlacement="bottom"
+                        [status]="
+                          (rateForm.get('dimensions.width').touched ||
+                            rateForm.get('dimensions.width').dirty) &&
+                          !rateForm.get('dimensions.width').valid
+                            ? 'danger'
+                            : 'basic'
+                        "
+                      />
+                      X
+                      <input
+                        type="text"
+                        formControlName="height"
+                        nbInput
+                        placeholder="Height"
+                        shape="semi-round"
+                        nbPopover="Height"
+                        nbPopoverTrigger="hint"
+                        nbPopoverPlacement="bottom"
+                        [status]="
+                          (rateForm.get('dimensions.height').touched ||
+                            rateForm.get('dimensions.height').dirty) &&
+                          !rateForm.get('dimensions.height').valid
+                            ? 'danger'
+                            : 'basic'
+                        "
+                      />
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                  <nb-select shape="semi-round" formControlName="destination">
+                    <nb-option
+                      *ngFor="let facility of facilities"
+                      [value]="facility.id"
+                      >{{ facility.name }}</nb-option
+                    >
+                  </nb-select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" nbButton hero status="primary">
+              Calculate
+            </button>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="box">
+      <nb-card *ngIf="rateResult">
+        <nb-card-body>
+          <p-table [value]="rateResult" [scrollable]="true" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" style="width: 150px" />
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Product</th>
+                <th>Gross</th>
+                <th>Tax</th>
+                <th>Net</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-result>
+              <tr>
+                <td>{{ result.product }}</td>
+                <td>{{ result.gross | currency:'USD':'symbol':'4.2-2' }}</td>
+                <td>{{ result.tax | currency:'USD':'symbol':'4.2-2' }}</td>
+                <td>{{ result.net | currency:'USD':'symbol':'4.2-2' }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </nb-card-body>
+        <nb-card-footer>
+          <h4>Total: {{ totalRate | currency:'USD':'symbol':'4.2-2' }}</h4>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</div>

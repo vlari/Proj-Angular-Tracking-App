@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NbSidebarService } from '@nebular/theme';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -11,6 +12,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        NbSidebarService
+      ]
     }).compileComponents();
   }));
 

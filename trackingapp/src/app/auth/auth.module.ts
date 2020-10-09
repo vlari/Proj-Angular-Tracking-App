@@ -19,8 +19,8 @@ import { StoreModule } from '@ngrx/store';
     NbDatepickerModule,
     NbSelectModule,
     NbIconModule,
-    NbPopoverModule,
-    StoreModule.forFeature('auth', )
-  ]
+    NbPopoverModule
+  ],
+  exports: [LoginComponent, ResetpasswordComponent, SignupComponent]
 })
 export class AuthModule { }

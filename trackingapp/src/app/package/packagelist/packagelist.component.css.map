@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACH,aAAa,EAAE,IAAI;CACpB;;AAED,AACE,OADK,CACL,EAAE,CAAC;EACD,UAAU,EAAE,SAAS;CACtB",
+    "sources": [
+        "packagelist.component.scss"
+    ],
+    "names": [],
+    "file": "packagelist.component.css"
+}

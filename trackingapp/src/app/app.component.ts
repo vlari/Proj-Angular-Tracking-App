@@ -19,9 +19,11 @@ export class AppComponent {
       children: [
         {
           title: 'Package List',
+          link: 'packages'
         },
         {
-          title: 'History',
+          title: 'Rate Calculator',
+          link: 'packages/calculator'
         }
       ],
     },
@@ -32,9 +34,11 @@ export class AppComponent {
       children: [
         {
           title: 'Billing',
+          link: 'orders/billing'
         },
         {
           title: 'Orders',
+          link: 'orders/list'
         }
       ],
     },

@@ -1,0 +1,14 @@
+nb-card-body {
+  padding-top: 50px;
+}
+
+.box {
+  margin-bottom: 20px;
+}
+
+nb-icon {
+  font-size: 32px !important;
+  vertical-align: middle;
+  color: #8f9bb3;
+}
+/*# sourceMappingURL=signup.component.css.map */

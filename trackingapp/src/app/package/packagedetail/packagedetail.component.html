@@ -1,0 +1,23 @@
+<div class="row map-description">
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="box">
+      <nb-icon icon="globe-outline" status="primary"></nb-icon
+      >{{ selectedPackage.location.country }}
+      <nb-icon icon="map-outline" status="primary"></nb-icon
+      >{{ selectedPackage.location.region }}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs">
+    <div class="box">
+      <nb-card>
+        <nb-card-body>
+          <app-packagetrackmap
+            [package]="selectedPackage"
+          ></app-packagetrackmap>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,12 @@ exports.validatePackage = (body) => {
       .required(),
     weight: Joi.string
       .required(),
+    length: Joi.string
+      .required(),
+    width: Joi.string
+      .required(),
+    height: Joi.string
+      .required(),
     service: Joi.string()
       .required(),
     AccountId: Joi.number()

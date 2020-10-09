@@ -20,10 +20,32 @@ const Package = sequelize.define('Package', {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false
   },
+  length: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  width: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  height: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   service: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  longitude: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  latitude: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 module.exports = Package;
