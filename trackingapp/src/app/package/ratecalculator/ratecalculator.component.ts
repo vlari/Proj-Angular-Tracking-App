@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemService } from 'src/app/core/services/system.service';
 
+
 @Component({
   selector: 'app-ratecalculator',
   templateUrl: './ratecalculator.component.html',
@@ -41,6 +42,7 @@ export class RatecalculatorComponent implements OnInit {
       { field: 'tax', header: 'Tax' },
       { field: 'net', header: 'Net' }
     ];
+
   }
 
   onCalculate() {

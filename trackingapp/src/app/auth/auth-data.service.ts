@@ -5,6 +5,11 @@ import { environment } from '../../environments/environment';
 import { HttpError } from '../shared/models/http-error.model';
 import { catchError } from 'rxjs/operators';
 import { HttpCollectionResponse } from '../shared/models/http-collection-response.model';
+import { User } from '../shared/models/user.model';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthState } from './state/auth.reducer';
+import * as AuthActions from './state/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,37 +17,9 @@ import { HttpCollectionResponse } from '../shared/models/http-collection-respons
 export class AuthDataService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
-
-  // getDocumentTypes(): Observable<HttpCollectionResponse<DocumentType>> {
-  //   return this.http.get<HttpCollectionResponse<DocumentType>>(
-  //     `${environment.baseUrl}/documenttypes`,
-  //     {
-  //       headers: new HttpHeaders({
-  //         Accept: 'application/json',
-  //       })
-  //     }
-  //   );
-  // }
-
-  // getPaymentOptions(): Observable<HttpCollectionResponse<PaymentOptions>> {
-  //   return this.http.get<HttpCollectionResponse<PaymentOptions>>(
-  //     `${environment.baseUrl}/paymentoptions`,
-  //     {
-  //       headers: new HttpHeaders({
-  //         Accept: 'application/json',
-  //       })
-  //     }
-  //   );
-  // }
-
-  // getFacilities(): Observable<HttpCollectionResponse<any>> {
-  //   return this.http.get<HttpCollectionResponse<any>>(`${environment.baseUrl}/facilities`, {
-  //     headers: new HttpHeaders({
-  //       Accept: 'application/json',
-  //     })
-  //   });
-  // }
+  constructor(private http: HttpClient,
+    private cookieService: CookieService,
+    private store: Store<AuthState>) {}
 
   signUp(user: any): Observable<any | HttpError>{
     return this.http.post<any>(`${environment.baseUrl}/signup`, user, {
@@ -61,6 +38,24 @@ export class AuthDataService {
       })
     }).pipe(
       catchError( err => this.handleError(err))
+    );
+  }
+
+  signOut() {
+    this.cookieService.deleteAll();
+    this.store.dispatch(AuthActions.deleteSession());
+  }
+
+  getUser(): Observable<User[] | HttpError> {
+    return this.http.get<User[]>(
+      `${environment.baseUrl}/accounts`,
+      {
+        headers: new HttpHeaders({
+          Accept: 'application/json',
+        }),
+        withCredentials: true
+      }).pipe(
+      catchError(err => this.handleError(err))
     );
   }
 

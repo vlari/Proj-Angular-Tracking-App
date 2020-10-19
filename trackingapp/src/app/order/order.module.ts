@@ -18,7 +18,9 @@ import {
   NbTooltipModule } from '@nebular/theme';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { StoreModule } from '@ngrx/store';
+import { orderReducer } from './state/order.reducer';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
   declarations: [BillingComponent, OrderlistComponent],
@@ -26,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     OrderRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     TableModule,
     NbBadgeModule,
     NbInputModule,
@@ -37,7 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbAccordionModule,
     NbCheckboxModule,
     NbSelectModule,
-    NbTooltipModule
+    NbTooltipModule,
+    StoreModule.forFeature('order', orderReducer)
   ]
 })
 export class OrderModule { }

@@ -11,12 +11,13 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Store } from '@ngrx/store';
 import { State, getPackages } from '../state/package.reducer';
 import * as PackageActions from '../state/package.actions';
+import { addPackage } from 'src/app/order/state/order.actions';
 
 @Component({
   selector: 'app-packagelist',
   templateUrl: './packagelist.component.html',
   styleUrls: ['./packagelist.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
 })
 export class PackagelistComponent implements OnInit {
   packages: Package[];
@@ -24,7 +25,6 @@ export class PackagelistComponent implements OnInit {
   totalRecords: number;
   packageForm: FormGroup;
   columns: any = [];
-  x: any;
 
   constructor(
     private packageDataService: PackageDataService,
@@ -35,17 +35,15 @@ export class PackagelistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.packageDataService.getPendingPackages().subscribe(
-    //   (response: any) => {
-    //     this.packages = response.data;
-    //     this.totalRecords = response.count;
-    //     this.pagination = response.pagination;
-    //     console.log(response.data);
-    //   },
-    //   (error: any) => console.log(error)
-    // );
-
-    this.x = this.store.select(getPackages);
+    this.store.select(getPackages).subscribe(
+      (response: any) => {
+        this.packages = response.data;
+        this.totalRecords = response.count;
+        this.pagination = response.pagination;
+        console.log(response.data);
+      },
+      (error: any) => console.log(error)
+    );
 
     this.store.dispatch(PackageActions.loadPendingPackages());
 
@@ -63,17 +61,15 @@ export class PackagelistComponent implements OnInit {
       { field: 'service', header: 'Service' },
       { field: 'status', header: 'Status' },
       { field: '', header: 'GeoLocation' },
-      { field: '', header: 'Billing' }
+      { field: '', header: 'Billing' },
     ];
-
   }
 
   loadPackages(event: LazyLoadEvent) {
     const direction =
       this.pagination?.nextPage || this.pagination?.previousPage;
 
-    const page = (event.first / event.rows) + 1;
-
+    const page = event.first / event.rows + 1;
 
     const filter: any = {
       page,
@@ -111,19 +107,22 @@ export class PackagelistComponent implements OnInit {
   }
 
   onSelectDetails(selectedPackage: any) {
-    this.packageDataService.getLocationName({ longitude: selectedPackage.longitude, latitude: selectedPackage.latitude })
+    this.packageDataService
+      .getLocationName({
+        longitude: selectedPackage.longitude,
+        latitude: selectedPackage.latitude,
+      })
       .subscribe(
         (response: any) => {
           selectedPackage.location = this.getLocation(response.features);
           const dialogRef = this.dialogService.open(PackagedetailComponent, {
             data: {
-              package: selectedPackage
+              package: selectedPackage,
             },
             header: 'GeoTracking',
             width: '70%',
-            height: '70%'
+            height: '70%',
           });
-
         },
         (error: any) => console.log(error)
       );
@@ -132,7 +131,7 @@ export class PackagelistComponent implements OnInit {
   getLocation(geoResponse: any) {
     let location = {};
 
-    geoResponse.forEach(feature =>  {
+    geoResponse.forEach((feature) => {
       location[feature.place_type] = feature.place_name;
     });
 
@@ -140,6 +139,8 @@ export class PackagelistComponent implements OnInit {
   }
 
   toggleOrderPackage(checked: boolean) {
-    
+
+    // this.store.dispatch(OrderAc)
+
   }
 }

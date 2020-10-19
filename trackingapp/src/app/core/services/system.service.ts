@@ -3,13 +3,16 @@ import { Observable } from 'rxjs';
 import { HttpCollectionResponse } from '../../shared/models/http-collection-response.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NbToastrService } from '@nebular/theme';
+import { AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SystemService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private toastrService: NbToastrService) { }
 
   getDocumentTypes(): Observable<HttpCollectionResponse<DocumentType>> {
     return this.http.get<HttpCollectionResponse<DocumentType>>(
@@ -75,6 +78,31 @@ export class SystemService {
     ];
 
     return products;
+  }
+
+  getToastrConfig(icon: string, status: string) {
+    return  { 
+      icon: icon, 
+      iconPack: 'eva', 
+      status: status,
+      position: 'bottom-end' 
+    };
+  }
+
+  getDateFormatted(date: any) {
+    let d = new Date(date);
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+  }
+
+  isSamePassword(c: AbstractControl): {[key: string]: boolean} | null {
+    const password = c.get('password');
+    const confirmPassword = c.get('confirmPassword');
+  
+    if (password.value !== confirmPassword.value) {
+      return { 'match': true };
+    }
+  
+    return null;
   }
 
 }

@@ -29,6 +29,11 @@ import { CoreModule } from './core/core.module';
 import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
+import {MenuModule} from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
+import { AccountModule } from './account/account.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -59,7 +64,11 @@ import { EffectsModule } from '@ngrx/effects';
     NbBadgeModule,
     NbDialogModule.forRoot(),
     CoreModule,
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    MenuModule,
+    ButtonModule,
+    AccountModule,
+    StoreDevtoolsModule.instrument({ name: 'Tracking App', maxAge: 25, logOnly: environment.production })
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

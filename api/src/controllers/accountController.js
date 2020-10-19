@@ -24,15 +24,15 @@ exports.getAccountDetails = async (req, res, next) => {
       ],
       include: [{
         model: DocumentType,
-        attributes: ['name']
+        attributes: ['id', 'name']
       },
       {
         model: PaymentOption,
-        attributes: ['name']
+        attributes: ['id', 'name']
       },
       {
         model: Facility,
-        attributes: ['address']
+        attributes: ['id', 'address']
       }]
     });
 
@@ -47,6 +47,32 @@ exports.updateAccount = async (req, res, next) => {
     const account = await Account.findByPk(req.user.dataValues.id);
 
     const updatedAccount = await account.update(req.body);
+
+    sendJsonResponse(200, { data: updatedAccount }, res);
+  } catch (error) {
+    next(sendErrorResponse(500));
+  }
+};
+
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const account = await Account.findByPk(req.user.dataValues.id);
+
+    const { password, newPassword } = req.body;
+
+    const isValidPassword = await bcrypt.compare(
+      password,
+      account.password
+    );
+
+    if (!isValidPassword) {
+      return next(sendErrorResponse(401, 'Invalid user account'));
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    const updatedAccount = await account.update({ password: hashedPassword });
 
     sendJsonResponse(200, { data: updatedAccount }, res);
   } catch (error) {

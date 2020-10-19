@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { PackageDataService } from '../package-data.service';
 import * as PackageActions from '../state/package.actions';
 
@@ -18,9 +19,13 @@ export class PackageEffect {
         this.packageDataService
           .getPendingPackages()
           .pipe(
-            map( packages => PackageActions.loadPendingPackagesSuccess({ packages }))
+            map( packages => PackageActions.loadPendingPackagesSuccess({ packages })),
+            catchError(error => of(PackageActions.loadPendingPackagesFailure({ error })))
           )
       )
     );
   });
+
+  
+
 }

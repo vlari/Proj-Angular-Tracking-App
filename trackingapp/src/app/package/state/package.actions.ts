@@ -10,7 +10,8 @@ export const loadPendingPackagesSuccess = createAction(
 );
 
 export const loadPendingPackagesFailure = createAction(
-  'Package - get pending packages failure'
+  'Package - get pending packages failure',
+  props<{ error: string }>()
 );
 
 export const loadPackages = createAction(

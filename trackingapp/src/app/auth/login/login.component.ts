@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthDataService } from '../auth-data.service';
+import { AuthState } from '../state/auth.reducer';
+import * as AuthActions from '../state/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,8 @@ export class LoginComponent implements OnInit {
     private authDataService: AuthDataService,
     private toastrService: NbToastrService,
     private cookieService: CookieService,
-    private router: Router) { }
+    private router: Router,
+    private store: Store<AuthState>) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -48,6 +52,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (response: any) => {
             this.cookieService.set('userToken', response.userToken);
+            this.store.dispatch(AuthActions.loadUser());
             this.router.navigate(['/packages']);
           },
           (error: any) => {

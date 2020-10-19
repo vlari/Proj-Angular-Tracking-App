@@ -1,11 +1,24 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <button nbButton ghost class="btn-menu" (click)="toggle()"><nb-icon icon="menu"></nb-icon></button>
+    <button nbButton ghost class="btn-menu" (click)="toggle()">
+      <nb-icon icon="menu"></nb-icon>
+    </button>
+
+    <div class="user-actions" *ngIf="currentUser">
+      <button
+        type="button"
+        pButton
+        pRipple
+        icon="pi pi-user"
+        class="p-button-rounded p-button-text"
+        (click)="menu.toggle($event)"
+      ></button>
+      <p-menu #menu [popup]="true" [model]="userItems"></p-menu>
+    </div>
   </nb-layout-header>
 
   <nb-sidebar tag="left">
-      <nb-menu [items]="items">
-      </nb-menu>
+    <nb-menu [items]="sideBarItems"> </nb-menu>
   </nb-sidebar>
 
   <nb-layout-column class="colored-column-warning">

@@ -4,6 +4,7 @@ import { NotfoundComponent } from './shared/components/notfound/notfound.compone
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ResetpasswordComponent } from './auth/resetpassword/resetpassword.component';
+import { SettingsComponent } from './account/settings/settings.component';
 
 
 // {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'passwordreset',
     component: ResetpasswordComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: '**',

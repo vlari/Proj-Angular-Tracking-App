@@ -2,10 +2,8 @@ import * as AppState from '../../state/app.state';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as PackageActions from './package.actions';
 
-
 // Models
-
-export interface State {
+export interface State extends AppState.State {
     packages: PackageState;
 }
 
@@ -27,7 +25,7 @@ export const getPackages = createSelector(
 
 export const packageReducer = createReducer<PackageState>(
     initialState,
-    on(PackageActions.getPendingPackagesSuccess, (state, action): PackageState => {
+    on(PackageActions.loadPendingPackagesSuccess, (state, action): PackageState => {
         return {
             ...state,
             packages: action.packages
