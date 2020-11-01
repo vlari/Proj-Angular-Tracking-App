@@ -5,15 +5,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ResetpasswordComponent } from './auth/resetpassword/resetpassword.component';
 import { SettingsComponent } from './account/settings/settings.component';
+import { AuthGuard } from './auth/auth.guard';
 
-
-// {
-//   path: '',
-//   pathMatch: 'full',
-//   loadChildren: () =>
-//     import('./package/package.module')
-//       .then(m => m.PackageModule)
-// },
 
 const routes: Routes = [
   {
@@ -23,12 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'packages',
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./package/package.module')
         .then(m => m.PackageModule)
   },
   {
     path: 'orders',
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./order/order.module')
         .then(m => m.OrderModule)
@@ -47,6 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
+    canActivate: [AuthGuard],
     component: SettingsComponent
   },
   {
