@@ -84,12 +84,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (!this.signupForm.valid) {
-      const toastrConfig: any = { 
-        icon: 'close-circle-outline', 
-        iconPack: 'eva', 
-        status: 'danger',
-        position: 'bottom-end' 
-      };
+      const toastrConfig: any = this.systemService.getToastrConfig('close-circle-outline', 'danger');
       this.toastrService.show('', 'Please fill all the fields with the right data.', toastrConfig);
     } else {
       // Formating date
@@ -105,12 +100,7 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/auth/login']);
           },
           (error: any) => {
-            const toastrConfig: any = { 
-              icon: 'close-circle-outline', 
-              iconPack: 'eva', 
-              status: 'danger',
-              position: 'bottom-end' 
-            };
+            const toastrConfig: any = this.systemService.getToastrConfig('close-circle-outline', 'danger');
             this.toastrService.show('', error.message, toastrConfig);
           }
         );

@@ -55,8 +55,6 @@ exports.getPackages = async (req, res, next) => {
       limit: limit
     });
 
-    console.log('count', await Package.count({ where: packageQuery }));
-
     const pagination = {};
 
     if (endPage < packages.count) {
@@ -74,6 +72,43 @@ exports.getPackages = async (req, res, next) => {
     }
 
     sendJsonResponse(200, { data: packages.rows, count: packages.count, pagination }, res);
+  } catch (error) {
+    next(sendErrorResponse(500));
+  }
+};
+
+exports.getPendingPackages = async (req, res, next) => {
+  try {
+    const sortField = 'trackingNumber';
+    const sortOrder = 'ASC';
+
+    const includeQuery = {
+      include: [{
+        model: StatusType,
+        required: true,
+        where: {
+          name: {
+            [Op.not]: 'Delivered',
+          }
+        }
+      },
+      {
+        model: ContentType,
+        required: true
+      }]
+    };
+
+    const packages = await Package.findAndCountAll({
+      where: {
+        AccountId: req.user.dataValues.id
+      },
+      ...includeQuery,
+      order: [
+        [sortField, sortOrder]
+      ]
+    });
+
+    sendJsonResponse(200, { data: packages.rows, count: packages.count }, res);
   } catch (error) {
     next(sendErrorResponse(500));
   }

@@ -8,18 +8,18 @@ export interface State extends AppState.State {
 }
 
 export interface OrderState {
-    orderPackages: Package[];
+    selectedPackages: Package[];
 }
 
 const initialState: OrderState = {
-    orderPackages: []
+    selectedPackages: []
 }
 
-const getPackageFeatureState = createFeatureSelector<OrderState>('packages');
+const getOrderFeatureState = createFeatureSelector<OrderState>('order');
 
-export const getOrderPackages = createSelector(
-    getPackageFeatureState,
-    state => state.orderPackages
+export const getSelectedPackages = createSelector(
+    getOrderFeatureState,
+    state => state.selectedPackages
 );
 
 export const orderReducer = createReducer<OrderState>(
@@ -27,16 +27,16 @@ export const orderReducer = createReducer<OrderState>(
     on(OrderActions.addPackage, (state, action): OrderState => {
         return {
             ...state,
-            orderPackages: [ ...state.orderPackages, action.package]
+            selectedPackages: [ ...state.selectedPackages, action.package]
         }
     }),
-    on(OrderActions.deletePackage, (state, action): OrderState => {
-        const packageList = state.orderPackages.filter(p => {
-            return p.trackingNumber !== action.trackingNumber;
+    on(OrderActions.removePackage, (state, action): OrderState => {
+        const packageList = state.selectedPackages.filter(p => {
+            return p.trackingNumber != action.trackingNumber;
         });
         return {
             ...state,
-            orderPackages: packageList
+            selectedPackages: packageList
         }
     })
 );

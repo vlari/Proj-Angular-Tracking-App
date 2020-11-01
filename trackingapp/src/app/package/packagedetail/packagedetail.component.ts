@@ -15,7 +15,6 @@ export class PackagedetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedPackage = this.config.data.package;
-    console.log('my config ', this.config.data.package);
   }
 
   dismiss() {

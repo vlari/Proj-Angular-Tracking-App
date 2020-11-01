@@ -26,6 +26,19 @@ export class PackageDataService {
     );
   }
   
+  getOrderPackages(): Observable<Package[] | HttpError> {
+    return this.http.get<Package[]>(
+      `${environment.baseUrl}/packages/pending`,
+      {
+        headers: new HttpHeaders({
+          Accept: 'application/json',
+        }),
+        withCredentials: true
+      }).pipe(
+      catchError(err => this.handleError(err))
+    );
+  }
+  
   getLocationName(coordinates: any): Observable<any | HttpError> {
     return this.http.get<any>(
       `${environment.mapLocationApi}/${coordinates.longitude},${coordinates.latitude}.json?access_token=${environment.mapKey}`,

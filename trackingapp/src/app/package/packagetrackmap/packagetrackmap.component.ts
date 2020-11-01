@@ -14,8 +14,6 @@ export class PackagetrackmapComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('dialog', this.package);
-
     const map = new mapboxgl.Map({
       container: 'map',
       accessToken: environment.mapKey,

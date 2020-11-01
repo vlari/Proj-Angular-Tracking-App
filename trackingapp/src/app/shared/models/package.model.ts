@@ -6,6 +6,9 @@ export interface Package {
     trackingNumber: string;
     date: string;
     weight: string;
+    length: string;
+    width: string;
+    height: string;
     service: string;
     AccountId: number;
     StatusTypeId: number;

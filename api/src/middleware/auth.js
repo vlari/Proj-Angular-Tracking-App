@@ -19,6 +19,7 @@ exports.guard = async (req, res, next) => {
 
   try {
     const token = jwt.verify(userToken, env.SECRET_KEY);
+    console.log('token', token);
 
     const user = await Account.findByPk(token.id);
 

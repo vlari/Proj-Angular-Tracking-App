@@ -6,11 +6,13 @@
         <nb-card-body>
           <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
             <nb-card accent="primary">
-              <nb-card-body>
+              <nb-card-body *ngIf="currentUser">
                 <div class="order-description">
-                  <nb-icon icon="calendar-outline"></nb-icon>Date
-                  <nb-icon icon="person-outline"></nb-icon>User
-                  <nb-icon icon="credit-card-outline"></nb-icon>Payment Option
+                  <nb-icon icon="calendar-outline"></nb-icon>{{ currentDate }}
+                  <nb-icon icon="person-outline"></nb-icon
+                  >{{ currentUser.name + " " + currentUser.lastName }}
+                  <nb-icon icon="credit-card-outline"></nb-icon
+                  >{{ currentUser.PaymentOption.name }}
                 </div>
               </nb-card-body>
             </nb-card>
@@ -18,7 +20,7 @@
             <nb-card accent="primary">
               <nb-card-body>
                 <p-table
-                  [value]="packages"
+                  [value]="orderPackages"
                   [scrollable]="true"
                   [columns]="columns"
                 >
@@ -33,7 +35,20 @@
                       <th width="12%">Date</th>
                       <th width="8%">Weight</th>
                       <th width="10%">Service</th>
-                      <th width="10%"></th>
+                      <th width="10%">
+                        <button
+                          type="button"
+                          nbButton
+                          status="primary"
+                          (click)="showPackageModal()"
+                          shape="semi-round"
+                        >
+                          <nb-icon
+                            icon="shopping-cart"
+                            [options]="{ animation: { type: 'pulse' } }"
+                          ></nb-icon>
+                        </button>
+                      </th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-package>

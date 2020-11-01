@@ -1,1 +1,109 @@
-<p>orderlist works!</p>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12" *ngIf="orders">
+    <div class="box">
+      <div class="row">
+        <div class="col-xs">
+          <div class="box">
+            <form [formGroup]="orderForm" (ngSubmit)="onFilter()">
+              <input
+                nbInput
+                placeholder="Start Date"
+                formControlName="startDate"
+                [nbDatepicker]="dateTimePickerStart"
+              />
+              <nb-datepicker #dateTimePickerStart></nb-datepicker>
+              <input
+                nbInput
+                placeholder="End Date"
+                formControlName="endDate"
+                [nbDatepicker]="dateTimePickerEnd"
+              />
+              <nb-datepicker #dateTimePickerEnd></nb-datepicker>
+              <button type="submit" nbButton status="primary">
+                <nb-icon icon="search"></nb-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <p-table
+        [value]="orders"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="3"
+        [totalRecords]="totalRecords"
+        (onLazyLoad)="loadOrders($event)"
+        [scrollable]="true"
+        [columns]="columns"
+      >
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let col of columns" style="width: 150px" />
+          </colgroup>
+        </ng-template>
+        <!-- <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{ col.header }}
+                <p-sortIcon [filed]="col.field"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template> -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th width="20%" pSortableColumn="orderNumber">
+              Order Number
+              <p-sortIcon filed="orderNumber"></p-sortIcon>
+            </th>
+            <th width="12%" pSortableColumn="date">
+              Date
+              <p-sortIcon filed="date"></p-sortIcon>
+            </th>
+            <th width="8%" pSortableColumn="subtotal">
+              Subtotal
+              <p-sortIcon filed="subtotal"></p-sortIcon>
+            </th>
+            <th width="10%" pSortableColumn="salesTax">
+              Sales Tax
+              <p-sortIcon filed="salesTax"></p-sortIcon>
+            </th>
+            <th width="10%" pSortableColumn="total">
+              Total
+              <p-sortIcon filed="total"></p-sortIcon>
+            </th>
+            <th width="10%">Packages</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+          <tr>
+            <td>{{ order.trackingNumber }}</td>
+            <td>{{ order.date }}</td>
+            <td>{{ order.subtotal }}</td>
+            <td>{{ order.salesTax }}</td>
+            <td>{{ order.total }}</td>
+            <td>
+              <button
+                type="button"
+                nbButton
+                status="primary"
+                (click)="onSelectDetails(order)"
+                shape="round"
+              >
+                <nb-icon icon="cube"></nb-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<div class="row center-xs empty-message">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="box">
+      <nb-icon icon="clipboard-outline"></nb-icon>
+      <h4>No orders to show</h4>
+    </div>
+  </div>
+</div>

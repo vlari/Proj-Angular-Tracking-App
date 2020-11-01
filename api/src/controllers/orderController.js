@@ -19,12 +19,6 @@ exports.getOrders = async (req, res, next) => {
     const endDate = req.query.endDate || new Date();
 
     const orders = await Order.findAndCountAll({
-      where: {
-        date: {
-          [Op.gte]: startDate,
-          [Op.lte]: endDate
-        }
-      },
       include: {
         model: Package,
         required: true
@@ -35,7 +29,7 @@ exports.getOrders = async (req, res, next) => {
 
     const pagination = {};
 
-    if (endPage < packages.count) {
+    if (endPage < orders.count) {
       pagination.nextPage = {
         page: page + 1,
         limit
@@ -88,6 +82,19 @@ exports.addOrder = async (req, res, next) => {
     });
 
     await registeredOrder.addPackages(packages);
+
+    await Package.update(
+      {
+        StatusTypeId: 4
+      },
+      {
+        where: {
+          trackingNumber: {
+            [Op.or]: [req.body.packages]
+          }
+        }
+      }
+    );
 
     sendJsonResponse(201, { data: registeredOrder }, res);
   } catch (error) {

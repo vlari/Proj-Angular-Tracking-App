@@ -11,7 +11,7 @@ export const addPackage = createAction(
   props<{ package: Package }>()
 );
 
-export const deletePackage = createAction(
+export const removePackage = createAction(
   'Order - delete package from order',
   props<{ trackingNumber: any }>()
 );

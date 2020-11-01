@@ -1,6 +1,7 @@
 import * as AppState from '../../state/app.state';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as PackageActions from './package.actions';
+import { Package } from 'src/app/shared/models/package.model';
 
 // Models
 export interface State extends AppState.State {
@@ -12,7 +13,7 @@ export interface PackageState {
 }
 
 const initialState: PackageState = {
-    packages: []
+    packages: [],
 }
 
 // Selectors

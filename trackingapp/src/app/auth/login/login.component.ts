@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthDataService } from '../auth-data.service';
 import { AuthState } from '../state/auth.reducer';
 import * as AuthActions from '../state/auth.actions';
+import { SystemService } from 'src/app/core/services/system.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private toastrService: NbToastrService,
     private cookieService: CookieService,
     private router: Router,
+    private systemService: SystemService,
     private store: Store<AuthState>) { }
 
   ngOnInit(): void {
@@ -38,12 +40,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (!this.loginForm.valid) {
-      const toastrConfig: any = { 
-        icon: 'close-circle-outline', 
-        iconPack: 'eva', 
-        status: 'danger',
-        position: 'bottom-end' 
-      };
+      const toastrConfig: any = this.systemService.getToastrConfig('close-circle-outline', 'danger');
       this.toastrService.show('', 'Please fill all the fields with the right data.', toastrConfig);
     } else {
       const email = this.loginForm.get('email').value;
@@ -56,12 +53,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/packages']);
           },
           (error: any) => {
-            const toastrConfig: any = { 
-              icon: 'close-circle-outline', 
-              iconPack: 'eva', 
-              status: 'danger',
-              position: 'bottom-end' 
-            };
+            const toastrConfig: any = this.systemService.getToastrConfig('close-circle-outline', 'danger');
             this.toastrService.show('', error.message, toastrConfig);
           }
         )

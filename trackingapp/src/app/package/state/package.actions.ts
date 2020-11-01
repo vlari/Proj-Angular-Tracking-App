@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Package } from 'src/app/shared/models/package.model';
 
 export const loadPendingPackages = createAction(
   'Package - get pending packages'

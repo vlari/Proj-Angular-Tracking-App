@@ -4,14 +4,11 @@ import { PackageDataService } from '../package-data.service';
 import { SettingsService } from '../../shared/services/settings.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogService } from '@nebular/theme';
-import { PackagetrackmapComponent } from '../packagetrackmap/packagetrackmap.component';
 import { PackagedetailComponent } from '../packagedetail/packagedetail.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Store } from '@ngrx/store';
 import { State, getPackages } from '../state/package.reducer';
 import * as PackageActions from '../state/package.actions';
-import { addPackage } from 'src/app/order/state/order.actions';
 
 @Component({
   selector: 'app-packagelist',
@@ -21,6 +18,7 @@ import { addPackage } from 'src/app/order/state/order.actions';
 })
 export class PackagelistComponent implements OnInit {
   packages: Package[];
+  selectedOrderPackages: Package[];
   pagination: any;
   totalRecords: number;
   packageForm: FormGroup;
@@ -40,7 +38,6 @@ export class PackagelistComponent implements OnInit {
         this.packages = response.data;
         this.totalRecords = response.count;
         this.pagination = response.pagination;
-        console.log(response.data);
       },
       (error: any) => console.log(error)
     );
@@ -60,8 +57,7 @@ export class PackagelistComponent implements OnInit {
       { field: 'weight', header: 'Weight' },
       { field: 'service', header: 'Service' },
       { field: 'status', header: 'Status' },
-      { field: '', header: 'GeoLocation' },
-      { field: '', header: 'Billing' },
+      { field: '', header: 'GeoLocation' }
     ];
   }
 
@@ -138,9 +134,9 @@ export class PackagelistComponent implements OnInit {
     return location;
   }
 
-  toggleOrderPackage(checked: boolean) {
-
-    // this.store.dispatch(OrderAc)
-
+  isPackageSelected(tablePackage: any) {
+    const resultPackage = this.selectedOrderPackages.find(p => p.trackingNumber === tablePackage.trackingNumber);
+    const isSelected = resultPackage ? true : false;
+    return isSelected;
   }
 }

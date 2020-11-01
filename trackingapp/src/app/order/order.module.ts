@@ -11,23 +11,27 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
+  NbDatepickerModule,
   NbDialogModule,
   NbIconModule,
   NbInputModule,
   NbSelectModule,
   NbTooltipModule } from '@nebular/theme';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { orderReducer } from './state/order.reducer';
 import { SharedModule } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+import { OrderpackagelistComponent } from './orderpackagelist/orderpackagelist.component';
 
 @NgModule({
-  declarations: [BillingComponent, OrderlistComponent],
+  declarations: [BillingComponent, OrderlistComponent, OrderpackagelistComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     SharedModule,
     TableModule,
     NbBadgeModule,
@@ -41,7 +45,11 @@ import { SharedModule } from 'primeng/api';
     NbCheckboxModule,
     NbSelectModule,
     NbTooltipModule,
+    DynamicDialogModule,
+    NbDatepickerModule,
     StoreModule.forFeature('order', orderReducer)
-  ]
+  ],
+  entryComponents: [OrderpackagelistComponent],
+  providers: [DialogService]
 })
 export class OrderModule { }

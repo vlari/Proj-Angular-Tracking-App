@@ -79,8 +79,6 @@ export class SettingsComponent implements OnInit {
       (response: any) => {  
         this.currentUser = response?.data;
 
-        console.log('called', response)
-
         this.settingsForm.get('name').setValue(this.currentUser.name);
         this.settingsForm.get('lastName').setValue(this.currentUser.lastName);
         this.settingsForm.get('dateOfBirth').setValue(new Date(this.currentUser.dateOfBirth));
@@ -111,8 +109,6 @@ export class SettingsComponent implements OnInit {
       this.settingsForm.get('dateOfBirth').value
     );
     this.settingsForm.get('dateOfBirth').setValue(dateOfBirth);
-
-    console.log('my form', this.settingsForm.value);
 
     this.accountDataService.patchUser(this.settingsForm.value).subscribe(
       (_data) => {

@@ -27,8 +27,7 @@
         [rows]="3"
         [totalRecords]="totalRecords"
         (onLazyLoad)="loadPackages($event)"
-        [scrollable]="true"
-        [columns]="columns"
+f        [columns]="columns"
       >
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
@@ -63,7 +62,6 @@
             </th>
             <th width="10%">Status</th>
             <th width="10%">GeoLocation</th>
-            <th width="10%">Billing</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-package>
@@ -90,13 +88,14 @@
                 <nb-icon icon="pin"></nb-icon>
               </button>
             </td>
-            <td>
+            <!-- <td>
               <nb-checkbox
                 *ngIf="package.StatusType.name !== 'Delivered'"
-                (checkedChange)="toggleOrderPackage($event)"
+                (checkedChange)="toggleOrderPackage($event, package)"
+                [value]="f(package)"
                 status="basic"
               ></nb-checkbox>
-            </td>
+            </td> -->
           </tr>
         </ng-template>
       </p-table>
