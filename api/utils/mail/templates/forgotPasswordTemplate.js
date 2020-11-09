@@ -3,7 +3,7 @@ const forgotPasswordTemplate = options => {
   return `<div style="font-family:-apple-system,BlinkMacSystemFont,Roboto,'Helvetica neue',Helvetica,Tahoma,Arial,sans-serif;">
   <h1>Hello</h1>
   <p>
-  We received a request to reset your password for your Eventbrite account: ${options.email}. We're here to help!  
+  We received a request to reset your password for your Tracking App account: ${options.email}. We're here to help!  
   </p>
   <p>
   Simply click on the link below to set a new password:  

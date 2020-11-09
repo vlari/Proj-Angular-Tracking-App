@@ -134,7 +134,11 @@
     <div class="box">
       <nb-card *ngIf="rateResult">
         <nb-card-body>
-          <p-table [value]="rateResult" [scrollable]="true" styleClass="p-datatable-gridlines">
+          <p-table
+            [value]="rateResult"
+            [scrollable]="true"
+            styleClass="p-datatable-gridlines"
+          >
             <ng-template pTemplate="colgroup" let-columns>
               <colgroup>
                 <col *ngFor="let col of columns" style="width: 150px" />
@@ -151,15 +155,15 @@
             <ng-template pTemplate="body" let-result>
               <tr>
                 <td>{{ result.product }}</td>
-                <td>{{ result.gross | currency:'USD':'symbol':'4.2-2' }}</td>
-                <td>{{ result.tax | currency:'USD':'symbol':'4.2-2' }}</td>
-                <td>{{ result.net | currency:'USD':'symbol':'4.2-2' }}</td>
+                <td>{{ result.gross | currency: "USD":"symbol":"4.2-2" }}</td>
+                <td>{{ result.tax | currency: "USD":"symbol":"4.2-2" }}</td>
+                <td>{{ result.net | currency: "USD":"symbol":"4.2-2" }}</td>
               </tr>
             </ng-template>
           </p-table>
         </nb-card-body>
         <nb-card-footer>
-          <h4>Total: {{ totalRate | currency:'USD':'symbol':'4.2-2' }}</h4>
+          <h4>Total: {{ totalRate | currency: "USD":"symbol":"4.2-2" }}</h4>
         </nb-card-footer>
       </nb-card>
     </div>

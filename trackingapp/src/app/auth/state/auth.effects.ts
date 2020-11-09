@@ -16,14 +16,11 @@ export class AuthEffect {
     return this.actions.pipe(
       ofType(AuthActions.loadUser),
       mergeMap(() =>
-        this.authDataService
-          .getUser()
-          .pipe(
-            map( user => AuthActions.loadUserSuccess({ user })),
-            catchError(error => of(AuthActions.loadUserFailure({ error })))
-          )
+        this.authDataService.getUser().pipe(
+          map((user) => AuthActions.loadUserSuccess({ user })),
+          catchError((error) => of(AuthActions.loadUserFailure({ error })))
+        )
       )
     );
   });
-  
 }

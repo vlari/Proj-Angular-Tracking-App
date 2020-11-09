@@ -18,12 +18,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { authReducer } from './state/auth.reducer';
 import { AuthEffect } from './state/auth.effects';
+import { RouterModule } from '@angular/router';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 @NgModule({
-  declarations: [LoginComponent, ResetpasswordComponent, SignupComponent],
+  declarations: [LoginComponent, ResetpasswordComponent, SignupComponent, ForgotpasswordComponent],
   imports: [
     CommonModule,
     SharedModule,
+    RouterModule,
     NbCardModule,
     NbInputModule,
     NbButtonModule,

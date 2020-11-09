@@ -57,7 +57,7 @@ export class PackagelistComponent implements OnInit {
       { field: 'weight', header: 'Weight' },
       { field: 'service', header: 'Service' },
       { field: 'status', header: 'Status' },
-      { field: '', header: 'GeoLocation' }
+      { field: '', header: 'GeoLocation' },
     ];
   }
 
@@ -135,7 +135,9 @@ export class PackagelistComponent implements OnInit {
   }
 
   isPackageSelected(tablePackage: any) {
-    const resultPackage = this.selectedOrderPackages.find(p => p.trackingNumber === tablePackage.trackingNumber);
+    const resultPackage = this.selectedOrderPackages.find(
+      (p) => p.trackingNumber === tablePackage.trackingNumber
+    );
     const isSelected = resultPackage ? true : false;
     return isSelected;
   }

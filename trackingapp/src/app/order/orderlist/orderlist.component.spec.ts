@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { OrderlistComponent } from './orderlist.component';
 
@@ -8,7 +11,9 @@ describe('OrderlistComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderlistComponent ]
+      imports: [ HttpClientModule, ReactiveFormsModule ],
+      declarations: [ OrderlistComponent ],
+      providers: [ DialogService ]
     })
     .compileComponents();
   }));

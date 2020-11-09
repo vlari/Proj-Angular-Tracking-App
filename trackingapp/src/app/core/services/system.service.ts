@@ -11,8 +11,7 @@ import { AbstractControl } from '@angular/forms';
 })
 export class SystemService {
 
-  constructor(private http: HttpClient,
-    private toastrService: NbToastrService) { }
+  constructor(private http: HttpClient) { }
 
   getDocumentTypes(): Observable<HttpCollectionResponse<DocumentType>> {
     return this.http.get<HttpCollectionResponse<DocumentType>>(
@@ -85,7 +84,8 @@ export class SystemService {
       icon: icon, 
       iconPack: 'eva', 
       status: status,
-      position: 'bottom-end' 
+      position: 'bottom-end',
+      preventDuplicates: false
     };
   }
 
@@ -95,7 +95,7 @@ export class SystemService {
   }
 
   isSamePassword(c: AbstractControl): {[key: string]: boolean} | null {
-    const password = c.get('password');
+    const password = c.get('newPassword');
     const confirmPassword = c.get('confirmPassword');
   
     if (password.value !== confirmPassword.value) {

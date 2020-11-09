@@ -27,21 +27,13 @@
         [rows]="3"
         [totalRecords]="totalRecords"
         (onLazyLoad)="loadPackages($event)"
-f        [columns]="columns"
+        [columns]="columns"
       >
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" style="width: 150px" />
           </colgroup>
         </ng-template>
-        <!-- <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th *ngFor="let col of columns">
-              {{ col.header }}
-              <p-sortIcon [filed]="col.field"></p-sortIcon>
-            </th>
-          </tr>
-        </ng-template> -->
         <ng-template pTemplate="header">
           <tr>
             <th width="20%" pSortableColumn="trackingNumber">
@@ -88,14 +80,6 @@ f        [columns]="columns"
                 <nb-icon icon="pin"></nb-icon>
               </button>
             </td>
-            <!-- <td>
-              <nb-checkbox
-                *ngIf="package.StatusType.name !== 'Delivered'"
-                (checkedChange)="toggleOrderPackage($event, package)"
-                [value]="f(package)"
-                status="basic"
-              ></nb-checkbox>
-            </td> -->
           </tr>
         </ng-template>
       </p-table>

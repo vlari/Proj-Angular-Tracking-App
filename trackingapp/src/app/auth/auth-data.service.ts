@@ -17,28 +17,65 @@ import { Store } from '@ngrx/store';
 export class AuthDataService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private cookieService: CookieService,
-    private store: Store<AuthState>) {}
+    private store: Store<AuthState>
+  ) {}
 
-  signUp(user: any): Observable<any | HttpError>{
-    return this.http.post<any>(`${environment.baseUrl}/signup`, user, {
-      headers: new HttpHeaders({
-        ContentType: 'application/json',
+  getUser(): Observable<User[] | HttpError> {
+    return this.http
+      .get<User[]>(`${environment.baseUrl}/accounts`, {
+        headers: new HttpHeaders({
+          Accept: 'application/json',
+        }),
+        withCredentials: true,
       })
-    }).pipe(
-      catchError( err => this.handleError(err))
-    );
+      .pipe(catchError((err) => this.handleError(err)));
   }
 
   login(email: string, password: string): Observable<any | HttpError> {
-    return this.http.post<any>(`${environment.baseUrl}/signin`, { email, password }, {
-      headers: new HttpHeaders({
-        ContentType: 'application/json',
+    return this.http
+      .post<any>(
+        `${environment.baseUrl}/signin`,
+        { email, password },
+        {
+          headers: new HttpHeaders({
+            ContentType: 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError((err) => this.handleError(err)));
+  }
+
+  signUp(user: any): Observable<any | HttpError> {
+    return this.http
+      .post<any>(`${environment.baseUrl}/signup`, user, {
+        headers: new HttpHeaders({
+          ContentType: 'application/json',
+        }),
       })
-    }).pipe(
-      catchError( err => this.handleError(err))
-    );
+      .pipe(catchError((err) => this.handleError(err)));
+  }
+  
+  sendEmail(email: string): Observable<any | HttpError> {
+    return this.http
+      .post<any>(`${environment.baseUrl}/passwordforgot`, { email }, {
+        headers: new HttpHeaders({
+          ContentType: 'application/json',
+        }),
+      })
+      .pipe(catchError((err) => this.handleError(err)));
+  }
+  
+  resetPassword(userDetail: any): Observable<any | HttpError> {
+    return this.http
+      .post<any>(`${environment.baseUrl}/passwordreset`, userDetail, {
+        headers: new HttpHeaders({
+          ContentType: 'application/json',
+        }),
+      })
+      .pipe(catchError((err) => this.handleError(err)));
   }
 
   signOut() {
@@ -46,26 +83,12 @@ export class AuthDataService {
     this.store.dispatch(AuthActions.deleteSession());
   }
 
-  getUser(): Observable<User[] | HttpError> {
-    return this.http.get<User[]>(
-      `${environment.baseUrl}/accounts`,
-      {
-        headers: new HttpHeaders({
-          Accept: 'application/json',
-        }),
-        withCredentials: true
-      }).pipe(
-      catchError(err => this.handleError(err))
-    );
-  }
-
   private handleError(error: any): Observable<HttpError> {
     const { message, statusCode } = error.error;
-    let responseError = new HttpError()
+    let responseError = new HttpError();
     responseError.errorCode = statusCode;
     responseError.message = message;
 
     return throwError(responseError);
   }
-  
 }

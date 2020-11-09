@@ -14,7 +14,7 @@ import { OrderpackagelistComponent } from '../orderpackagelist/orderpackagelist.
   styleUrls: ['./orderlist.component.scss'],
 })
 export class OrderlistComponent implements OnInit {
-  orders: Order[];
+  orders: Order[] | any;
   pagination: any;
   totalRecords: number;
   orderForm: FormGroup;
@@ -41,6 +41,8 @@ export class OrderlistComponent implements OnInit {
       { field: 'total', header: 'Total' },
       { field: '', header: 'Packages' },
     ];
+
+    this.search({});
   }
 
   loadOrders(event: LazyLoadEvent) {
@@ -55,12 +57,10 @@ export class OrderlistComponent implements OnInit {
       sortOrder: event.sortOrder === 1 ? 'ASC' : 'DESC',
     };
 
-    if (!this.orderForm.errors) {
-      const dateRange = this.getDateRangeValue();
+    const dateRange = this.getDateRangeValue();
 
-      filter.startDate = dateRange.startDate;
-      filter.endDate = dateRange.endDate;
-    }
+    filter.startDate = dateRange?.startDate;
+    filter.endDate = dateRange?.endDate;
 
     this.search(filter);
   }
@@ -85,10 +85,11 @@ export class OrderlistComponent implements OnInit {
     this.search(filter);
   }
 
-  onSelectDetails(selectedPackage: any) {
+  onSelectDetails(selectedOrder: any) {
     const dialogRef = this.dialogService.open(OrderpackagelistComponent, {
       data: {
-        readOnly: true,
+        isReadOnly: true,
+        packages: selectedOrder.Packages,
       },
       header: 'Packages',
       width: '30%',
@@ -100,12 +101,12 @@ export class OrderlistComponent implements OnInit {
     const startValue = this.orderForm.get('startDate').value;
     const endValue = this.orderForm.get('endDate').value;
 
-    const dateRange = null;
+    let dateRange: any = {};
 
-    dateRange.startDate = startValue
+    dateRange['startDate'] = startValue
       ? this.systemService.getDateFormatted(new Date(startValue))
       : null;
-    dateRange.endDate = startValue
+    dateRange['endDate'] = startValue
       ? this.systemService.getDateFormatted(new Date(endValue))
       : null;
 

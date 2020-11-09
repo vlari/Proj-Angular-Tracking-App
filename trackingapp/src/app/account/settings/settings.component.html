@@ -6,7 +6,11 @@
         <nb-card-body>
           <nb-tabset>
             <nb-tab tabTitle="Account" tabIcon="person-outline" responsive>
-              <form [formGroup]="settingsForm" (ngSubmit)="onSettingsSubmit()" *ngIf="loading">
+              <form
+                [formGroup]="settingsForm"
+                (ngSubmit)="onSettingsSubmit()"
+                *ngIf="loading"
+              >
                 <div class="row">
                   <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="box">
@@ -160,7 +164,6 @@
               </form>
             </nb-tab>
             <nb-tab tabTitle="Security" tabIcon="shield-outline" responsive>
-
               <form [formGroup]="securityForm" (ngSubmit)="onPasswordSubmit()">
                 <div class="row center-xs" formGroupName="passwordGroup">
                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -207,7 +210,6 @@
                   Change
                 </button>
               </form>
-
             </nb-tab>
           </nb-tabset>
         </nb-card-body>

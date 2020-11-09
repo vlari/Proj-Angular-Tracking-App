@@ -6,12 +6,12 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-packagetrackmap',
   templateUrl: './packagetrackmap.component.html',
-  styleUrls: ['./packagetrackmap.component.scss']
+  styleUrls: ['./packagetrackmap.component.scss'],
 })
 export class PackagetrackmapComponent implements OnInit {
   @Input() package;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     const map = new mapboxgl.Map({
@@ -23,7 +23,9 @@ export class PackagetrackmapComponent implements OnInit {
     });
 
     const marker = new mapboxgl.Marker({
-      color: '#009FC2'
-    }).setLngLat([this.package.longitude, this.package.latitude]).addTo(map);
+      color: '#009FC2',
+    })
+      .setLngLat([this.package.longitude, this.package.latitude])
+      .addTo(map);
   }
 }

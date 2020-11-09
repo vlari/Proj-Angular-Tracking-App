@@ -23,11 +23,21 @@ export class OrderpackagelistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const orderPackageList = this.config.data.packages;
+
+    if (orderPackageList) {
+      this.availablePackages = orderPackageList;
+    } else {
+      this.loadPackages();
+    }
+
+    this.isReadOnly = !this.config.data.isReadOnly;
+  }
+
+  loadPackages(): void {
     this.store.select(getSelectedPackages).subscribe(
       (response: any) => {
         const cart = response || [];
-
-        console.log('cart', cart);
 
         this.packageDataService
           .getOrderPackages()
@@ -42,19 +52,19 @@ export class OrderpackagelistComponent implements OnInit {
               this.availablePackages = response.data;
             }
 
-            this.isReadOnly = this.config.data.isReadOnly;
+            this.isReadOnly = !this.config.data.isReadOnly;
           });
       },
       (error: any) => console.log(error)
     );
   }
 
-  onAddPackage(selectedPackage: Package) {
+  onAddPackage(selectedPackage: Package): void {
     this.store.dispatch(OrderActions.addPackage({ package: selectedPackage }));
     this.dialogRef.close();
   }
 
-  dismiss() {
+  dismiss(): void {
     this.dialogRef.close();
   }
 }

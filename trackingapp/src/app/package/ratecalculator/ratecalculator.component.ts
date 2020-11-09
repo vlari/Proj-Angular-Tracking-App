@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemService } from 'src/app/core/services/system.service';
 
-
 @Component({
   selector: 'app-ratecalculator',
   templateUrl: './ratecalculator.component.html',
@@ -40,9 +39,8 @@ export class RatecalculatorComponent implements OnInit {
       { field: 'product', header: 'Product' },
       { field: 'gross', header: 'Gross' },
       { field: 'tax', header: 'Tax' },
-      { field: 'net', header: 'Net' }
+      { field: 'net', header: 'Net' },
     ];
-
   }
 
   onCalculate() {
@@ -52,9 +50,14 @@ export class RatecalculatorComponent implements OnInit {
       const dimensions = this.rateForm.get('dimensions');
       const destination = this.rateForm.get('destination').value;
 
-      const dimensionValue = dimensions.get('length').value * dimensions.get('width').value * dimensions.get('height').value;
+      const dimensionValue =
+        dimensions.get('length').value *
+        dimensions.get('width').value *
+        dimensions.get('height').value;
 
-      const destinationPrice = parseFloat(this.systemService.getDestinationPrice(destination));
+      const destinationPrice = parseFloat(
+        this.systemService.getDestinationPrice(destination)
+      );
 
       const gross = merchValue + weight + dimensionValue + destinationPrice;
 
@@ -62,7 +65,7 @@ export class RatecalculatorComponent implements OnInit {
 
       let total = 0;
 
-      products.forEach(p => {
+      products.forEach((p) => {
         p.gross = gross;
         p.net = gross + parseFloat(p.tax);
         total += p.net;

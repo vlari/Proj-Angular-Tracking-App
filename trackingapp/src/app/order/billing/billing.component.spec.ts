@@ -1,4 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
+import { StoreModule } from '@ngrx/store';
+import { SystemService } from 'src/app/core/services/system.service';
+import { orderReducer } from '../state/order.reducer';
 
 import { BillingComponent } from './billing.component';
 
@@ -8,7 +14,9 @@ describe('BillingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BillingComponent ]
+      imports: [ ReactiveFormsModule, HttpClientModule, StoreModule.forRoot({}), StoreModule.forFeature('order', orderReducer) ],
+      declarations: [ BillingComponent ],
+      providers: [ SystemService, NbToastrService ]
     })
     .compileComponents();
   }));

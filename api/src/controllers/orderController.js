@@ -15,16 +15,21 @@ exports.getOrders = async (req, res, next) => {
     const startPage = (page - 1) * limit;
     const endPage = page * limit;
 
-    const startDate = req.query.startDate || new Date().getDate() + 14;
-    const endDate = req.query.endDate || new Date();
+    const startDate = new Date(req.query.startDate) || new Date().getDate() - 14;
+    const endDate = new Date(req.query.endDate) || new Date();
 
     const orders = await Order.findAndCountAll({
+      where: {
+        createdAt: {
+          [Op.between]: [startDate, endDate],
+        },
+      },
       include: {
         model: Package,
-        required: true
+        required: true,
       },
       offset: startPage,
-      limit: limit
+      limit: limit,
     });
 
     const pagination = {};
@@ -32,20 +37,24 @@ exports.getOrders = async (req, res, next) => {
     if (endPage < orders.count) {
       pagination.nextPage = {
         page: page + 1,
-        limit
+        limit,
       };
     }
 
     if (startPage > 0) {
       pagination.previousPage = {
         page: page - 1,
-        limit
+        limit,
       };
     }
-    
-    sendJsonResponse(200, { data: orders.rows, count: orders.count, pagination }, res);
+
+    sendJsonResponse(
+      200,
+      { data: orders.rows, count: orders.count, pagination },
+      res
+    );
   } catch (error) {
-   next(sendErrorResponse(500)); 
+    next(sendErrorResponse(500));
   }
 };
 
@@ -59,15 +68,17 @@ exports.addOrder = async (req, res, next) => {
       );
     }
 
-    const paymentOption = await PaymentOption.findByPk(req.user.dataValues.PaymentOptionId);
+    const paymentOption = await PaymentOption.findByPk(
+      req.user.dataValues.PaymentOptionId
+    );
 
     const orders = await Order.count();
     const orderNumber = orders || 0;
 
     const order = {};
     order.AccountId = req.user.dataValues.id;
-    order.orderNumber = `ON-${orderNumber + 1}`,
-    order.date = new Date(Date.now());
+    (order.orderNumber = `ON-${orderNumber + 1}`),
+      (order.date = new Date(Date.now()));
     order.paymentOption = paymentOption.dataValues.name;
     order.subtotal = req.body.subtotal;
     order.salesTax = req.body.salesTax;
@@ -77,22 +88,22 @@ exports.addOrder = async (req, res, next) => {
 
     const packages = await Package.findAll({
       where: {
-        trackingNumber: req.body.packages
-      }
+        trackingNumber: req.body.packages,
+      },
     });
 
     await registeredOrder.addPackages(packages);
 
     await Package.update(
       {
-        StatusTypeId: 4
+        StatusTypeId: 4,
       },
       {
         where: {
           trackingNumber: {
-            [Op.or]: [req.body.packages]
-          }
-        }
+            [Op.or]: [req.body.packages],
+          },
+        },
       }
     );
 

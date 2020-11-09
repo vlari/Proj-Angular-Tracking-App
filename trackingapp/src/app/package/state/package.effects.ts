@@ -16,16 +16,15 @@ export class PackageEffect {
     return this.actions.pipe(
       ofType(PackageActions.loadPendingPackages),
       mergeMap(() =>
-        this.packageDataService
-          .getPendingPackages()
-          .pipe(
-            map( packages => PackageActions.loadPendingPackagesSuccess({ packages })),
-            catchError(error => of(PackageActions.loadPendingPackagesFailure({ error })))
+        this.packageDataService.getPendingPackages().pipe(
+          map((packages) =>
+            PackageActions.loadPendingPackagesSuccess({ packages })
+          ),
+          catchError((error) =>
+            of(PackageActions.loadPendingPackagesFailure({ error }))
           )
+        )
       )
     );
   });
-
-  
-
 }

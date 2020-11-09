@@ -27,14 +27,12 @@ exports.signUp = async (req, res, next) => {
 
     const isRegistered = await Account.findOne({
       where: {
-        email: req.body.email
-      }
+        email: req.body.email,
+      },
     });
 
     if (isRegistered) {
-      return next(
-        sendErrorResponse(400, 'Account already registered')
-      );
+      return next(sendErrorResponse(400, 'Account already registered'));
     }
 
     const registeredAccounts = await Account.count();
@@ -51,7 +49,7 @@ exports.signUp = async (req, res, next) => {
     /* Fetch packages when user created
     to simulate that account already
     purchased some packages. */
-    packages.forEach(p => {
+    packages.forEach((p) => {
       p.AccountId = newAccount.dataValues.id;
       p.trackingNumber = uuidv4();
     });
@@ -67,11 +65,7 @@ exports.signUp = async (req, res, next) => {
     // new account is created.
     // sendCookie(201, token, res);
 
-    sendJsonResponse(
-      201,
-      { message: 'Account created successfully' },
-      res
-    );
+    sendJsonResponse(201, { message: 'Account created successfully' }, res);
   } catch (error) {
     next(sendErrorResponse(500, error));
   }
@@ -155,9 +149,7 @@ exports.forgotPassword = async (req, res, next) => {
     const token = jwt.sign(payload, secretKey);
 
     // In production would be the real Url.
-    const resetUrl = `${req.protocol}://${req.get(
-      'host'
-    )}/resetPassword/${token}`;
+    const resetUrl = `${req.protocol}://localhost:4200/passwordreset/${id}/${token}`;
 
     const emailOptions = {
       type: 'forgotPassword',
@@ -194,7 +186,7 @@ exports.forgotPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
   try {
-    const { id, token } = req.body;
+    const { id, token, requestedPassword } = req.body;
 
     const account = await Account.findOne({
       where: {
@@ -206,7 +198,7 @@ exports.resetPassword = async (req, res, next) => {
       return next(sendErrorResponse(401, 'Invalid user account'));
     }
 
-    const { password, createdAt } = account.dataValues;
+    const { password, createdAt } = account;
 
     const secretKey = await crypto
       .createHash('SHA256')
@@ -217,10 +209,7 @@ exports.resetPassword = async (req, res, next) => {
 
     if (userToken.id === id) {
       const salt = await bcrypt.genSalt(10);
-      account.dataValues.password = await bcrypt.hash(
-        account.dataValues.password,
-        salt
-      );
+      account.password = await bcrypt.hash(requestedPassword, salt);
 
       await account.save();
       sendJsonResponse(200, { message: 'Password updated' }, res);
@@ -233,8 +222,11 @@ exports.resetPassword = async (req, res, next) => {
 };
 
 const sendCookie = (statusCode, token, res) => {
-  res.status(statusCode).cookie('userToken', token, {
-    expire: new Date() + 360000,
-    httpOnly: true
-  }).json({ userToken: token });
+  res
+    .status(statusCode)
+    .cookie('userToken', token, {
+      expire: new Date() + 360000,
+      httpOnly: true,
+    })
+    .json({ userToken: token });
 };

@@ -86,8 +86,6 @@ export class AppComponent implements OnInit {
     );
 
     this.store.dispatch(AuthActions.loadUser());
-
-    
   }
 
   toggle() {

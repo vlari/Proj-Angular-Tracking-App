@@ -144,7 +144,7 @@ export class BillingComponent implements OnInit {
   showPackageModal() {
     const dialogRef = this.dialogService.open(OrderpackagelistComponent, {
       data: {
-        readOnly: false,
+        isReadOnly: false,
       },
       header: 'Available Packages',
       width: '30%',

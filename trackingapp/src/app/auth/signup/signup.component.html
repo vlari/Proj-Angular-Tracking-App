@@ -15,8 +15,13 @@
                     fullwidth
                     placeholder="Name"
                     shape="semi-round"
-                    [status]=" (signupForm.get('name').touched ||
-                    signupForm.get('name').dirty) && !signupForm.get('name').valid ? 'danger' : 'basic'"
+                    [status]="
+                      (signupForm.get('name').touched ||
+                        signupForm.get('name').dirty) &&
+                      !signupForm.get('name').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
                   />
                 </div>
               </div>
@@ -29,8 +34,13 @@
                     fullwidth
                     placeholder="Last Name"
                     shape="semi-round"
-                    [status]=" (signupForm.get('lastName').touched ||
-                    signupForm.get('lastName').dirty) && !signupForm.get('lastName').valid ? 'danger' : 'basic'"
+                    [status]="
+                      (signupForm.get('lastName').touched ||
+                        signupForm.get('lastName').dirty) &&
+                      !signupForm.get('lastName').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
                   />
                 </div>
               </div>
@@ -52,7 +62,7 @@
                 <div class="box">
                   <nb-icon nbPrefix icon="person"></nb-icon>
                   <nb-select
-                  shape="semi-round"
+                    shape="semi-round"
                     formControlName="DocumentTypeId"
                   >
                     <nb-option
@@ -72,8 +82,13 @@
                     fullwidth
                     placeholder="Citizen Id"
                     shape="semi-round"
-                    [status]=" (signupForm.get('citizenId').touched ||
-                    signupForm.get('citizenId').dirty) && !signupForm.get('citizenId').valid ? 'danger' : 'basic'"
+                    [status]="
+                      (signupForm.get('citizenId').touched ||
+                        signupForm.get('citizenId').dirty) &&
+                      !signupForm.get('citizenId').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
                   />
                 </div>
               </div>
@@ -86,8 +101,13 @@
                     fullwidth
                     placeholder="Phone"
                     shape="semi-round"
-                    [status]=" (signupForm.get('phone').touched ||
-                    signupForm.get('phone').dirty) && !signupForm.get('phone').valid ? 'danger' : 'basic'"
+                    [status]="
+                      (signupForm.get('phone').touched ||
+                        signupForm.get('phone').dirty) &&
+                      !signupForm.get('phone').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
                   />
                 </div>
               </div>
@@ -116,8 +136,13 @@
                     fullwidth
                     placeholder="Address"
                     shape="semi-round"
-                    [status]=" (signupForm.get('address').touched ||
-                    signupForm.get('address').dirty) && !signupForm.get('address').valid ? 'danger' : 'basic'"
+                    [status]="
+                      (signupForm.get('address').touched ||
+                        signupForm.get('address').dirty) &&
+                      !signupForm.get('address').valid
+                        ? 'danger'
+                        : 'basic'
+                    "
                   />
                 </div>
               </div>
@@ -158,7 +183,7 @@
                 <div class="box">
                   <nb-icon nbPrefix icon="credit-card"></nb-icon>
                   <nb-select
-                  shape="semi-round"
+                    shape="semi-round"
                     formControlName="PaymentOptionId"
                   >
                     <nb-option
@@ -172,10 +197,7 @@
               <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="facilities">
                 <div class="box">
                   <nb-icon nbPrefix icon="pin"></nb-icon>
-                  <nb-select
-                  shape="semi-round"
-                    formControlName="FacilityId"
-                  >
+                  <nb-select shape="semi-round" formControlName="FacilityId">
                     <nb-option
                       *ngFor="let facility of facilities"
                       [value]="facility.id"
@@ -186,9 +208,7 @@
               </div>
             </div>
 
-            <button type="submit" nbButton hero status="primary">
-              Sign Up
-            </button>
+            <button type="submit" nbButton hero status="primary">Submit</button>
           </form>
         </nb-card-body>
       </nb-card>

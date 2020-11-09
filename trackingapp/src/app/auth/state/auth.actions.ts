@@ -12,6 +12,4 @@ export const loadUserFailure = createAction(
   props<{ error: string }>()
 );
 
-export const deleteSession = createAction(
-  'Auth - remove current session'
-);
+export const deleteSession = createAction('Auth - remove current session');

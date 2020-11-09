@@ -1,6 +1,6 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <button nbButton ghost class="btn-menu" (click)="toggle()">
+    <button nbButton ghost class="btn-menu" (click)="toggle()" >
       <nb-icon icon="menu"></nb-icon>
     </button>
 
@@ -18,7 +18,7 @@
   </nb-layout-header>
 
   <nb-sidebar tag="left">
-    <nb-menu [items]="sideBarItems" autoCollapse="true"> </nb-menu>
+    <nb-menu [items]="sideBarItems" autoCollapse="true" *ngIf="currentUser"></nb-menu>
   </nb-sidebar>
 
   <nb-layout-column class="colored-column-warning">

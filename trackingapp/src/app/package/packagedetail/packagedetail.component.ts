@@ -5,13 +5,15 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-packagedetail',
   templateUrl: './packagedetail.component.html',
-  styleUrls: ['./packagedetail.component.scss']
+  styleUrls: ['./packagedetail.component.scss'],
 })
 export class PackagedetailComponent implements OnInit {
   selectedPackage;
 
-  constructor(private dialogRef: DynamicDialogRef,
-    public config: DynamicDialogConfig) { }
+  constructor(
+    private dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {}
 
   ngOnInit(): void {
     this.selectedPackage = this.config.data.package;
@@ -20,5 +22,4 @@ export class PackagedetailComponent implements OnInit {
   dismiss() {
     this.dialogRef.close();
   }
-
 }

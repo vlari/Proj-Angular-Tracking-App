@@ -42,14 +42,6 @@
             <col *ngFor="let col of columns" style="width: 150px" />
           </colgroup>
         </ng-template>
-        <!-- <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th *ngFor="let col of columns">
-                {{ col.header }}
-                <p-sortIcon [filed]="col.field"></p-sortIcon>
-              </th>
-            </tr>
-          </ng-template> -->
         <ng-template pTemplate="header">
           <tr>
             <th width="20%" pSortableColumn="orderNumber">
@@ -77,7 +69,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-order>
           <tr>
-            <td>{{ order.trackingNumber }}</td>
+            <td>{{ order.orderNumber }}</td>
             <td>{{ order.date }}</td>
             <td>{{ order.subtotal }}</td>
             <td>{{ order.salesTax }}</td>
@@ -99,7 +91,7 @@
     </div>
   </div>
 </div>
-<div class="row center-xs empty-message">
+<div class="row center-xs empty-message" *ngIf="!orders">
   <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="box">
       <nb-icon icon="clipboard-outline"></nb-icon>

@@ -35,7 +35,6 @@ export class SettingsComponent implements OnInit {
     private fb: FormBuilder,
     private accountDataService: AccountDataService,
     private toastrService: NbToastrService,
-    private router: Router,
     private systemService: SystemService,
     private store: Store<State>
   ) {}
@@ -76,22 +75,29 @@ export class SettingsComponent implements OnInit {
     });
 
     this.store.select(getCurrentUser).subscribe(
-      (response: any) => {  
+      (response: any) => {
         this.currentUser = response?.data;
 
         this.settingsForm.get('name').setValue(this.currentUser.name);
         this.settingsForm.get('lastName').setValue(this.currentUser.lastName);
-        this.settingsForm.get('dateOfBirth').setValue(new Date(this.currentUser.dateOfBirth));
+        this.settingsForm
+          .get('dateOfBirth')
+          .setValue(new Date(this.currentUser.dateOfBirth));
         this.settingsForm.get('citizenId').setValue(this.currentUser.citizenId);
         this.settingsForm.get('email').setValue(this.currentUser.email);
         this.settingsForm.get('address').setValue(this.currentUser.address);
         this.settingsForm.get('phone').setValue(this.currentUser.phone);
-        this.settingsForm.get('DocumentTypeId').setValue(this.currentUser.DocumentType.id);
-        this.settingsForm.get('PaymentOptionId').setValue(this.currentUser.PaymentOption.id);
-        this.settingsForm.get('FacilityId').setValue(this.currentUser.Facility.id);
-        
-        this.loading = this.currentUser ? true : false;
+        this.settingsForm
+          .get('DocumentTypeId')
+          .setValue(this.currentUser.DocumentType.id);
+        this.settingsForm
+          .get('PaymentOptionId')
+          .setValue(this.currentUser.PaymentOption.id);
+        this.settingsForm
+          .get('FacilityId')
+          .setValue(this.currentUser.Facility.id);
 
+        this.loading = this.currentUser ? true : false;
       },
       (error: any) => console.log(error)
     );
@@ -136,7 +142,10 @@ export class SettingsComponent implements OnInit {
     const passwordGroup = this.securityForm.get('passwordGroup');
     if (passwordGroup.valid) {
       this.accountDataService
-        .patchPassword(passwordGroup.get('password').value, passwordGroup.get('newPassword').value)
+        .patchPassword(
+          passwordGroup.get('password').value,
+          passwordGroup.get('newPassword').value
+        )
         .subscribe(
           (_data) => {
             const toastrConfig: any = this.systemService.getToastrConfig(
