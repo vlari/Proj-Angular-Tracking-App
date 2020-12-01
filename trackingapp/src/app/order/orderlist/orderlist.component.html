@@ -36,6 +36,7 @@
         (onLazyLoad)="loadOrders($event)"
         [scrollable]="true"
         [columns]="columns"
+        *ngIf="orders.length"
       >
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
@@ -71,9 +72,9 @@
           <tr>
             <td>{{ order.orderNumber }}</td>
             <td>{{ order.date }}</td>
-            <td>{{ order.subtotal }}</td>
-            <td>{{ order.salesTax }}</td>
-            <td>{{ order.total }}</td>
+            <td>{{ order.subtotal | currency }}</td>
+            <td>{{ order.salesTax | currency}}</td>
+            <td>{{ order.total | currency}}</td>
             <td>
               <button
                 type="button"
@@ -88,14 +89,14 @@
           </tr>
         </ng-template>
       </p-table>
-    </div>
-  </div>
-</div>
-<div class="row center-xs empty-message" *ngIf="!orders">
-  <div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="box">
-      <nb-icon icon="clipboard-outline"></nb-icon>
-      <h4>No orders to show</h4>
+      <div class="row center-xs empty-message" *ngIf="!orders.length">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="box">
+            <nb-icon icon="clipboard-outline"></nb-icon>
+            <p>No orders to show</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

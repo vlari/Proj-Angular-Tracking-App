@@ -15,12 +15,12 @@ exports.getOrders = async (req, res, next) => {
     const startPage = (page - 1) * limit;
     const endPage = page * limit;
 
-    const startDate = new Date(req.query.startDate) || new Date().getDate() - 14;
-    const endDate = new Date(req.query.endDate) || new Date();
+    const startDate = req.query.startDate ? new Date(req.query.startDate) : new Date().getDate() - 14;
+    const endDate = req.query.endDate ? new Date(req.query.endDate) : new Date();
 
     const orders = await Order.findAndCountAll({
       where: {
-        createdAt: {
+        date: {
           [Op.between]: [startDate, endDate],
         },
       },

@@ -4,7 +4,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SystemService } from 'src/app/core/services/system.service';
 import { Order } from 'src/app/shared/models/order.model';
-import { SettingsService } from 'src/app/shared/services/settings.service';
 import { OrderDataService } from '../order-data.service';
 import { OrderpackagelistComponent } from '../orderpackagelist/orderpackagelist.component';
 
@@ -14,7 +13,7 @@ import { OrderpackagelistComponent } from '../orderpackagelist/orderpackagelist.
   styleUrls: ['./orderlist.component.scss'],
 })
 export class OrderlistComponent implements OnInit {
-  orders: Order[] | any;
+  orders: Order[] | any = [];
   pagination: any;
   totalRecords: number;
   orderForm: FormGroup;

@@ -23,6 +23,7 @@ export class BillingComponent implements OnInit {
   columns: { field: string; header: string }[];
   currentUser;
   currentDate;
+  isDetailDisabled = true;
 
   selectedPackages: {
     trackingNumber: string;
@@ -132,10 +133,11 @@ export class BillingComponent implements OnInit {
 
       subtotal += parseFloat(destinationPrice);
       const salesTax = subtotal + parseFloat(this.TAX);
+      const total = subtotal + salesTax;
 
-      this.orderForm.get('subtotal').setValue(subtotal);
-      this.orderForm.get('salesTax').setValue(salesTax);
-      this.orderForm.get('total').setValue(subtotal + salesTax);
+      this.orderForm.get('subtotal').setValue(subtotal.toFixed(2));
+      this.orderForm.get('salesTax').setValue(salesTax.toFixed(2));
+      this.orderForm.get('total').setValue(total.toFixed(2));
     } else {
       this.resetAmount();
     }

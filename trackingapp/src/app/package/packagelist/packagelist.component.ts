@@ -9,6 +9,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Store } from '@ngrx/store';
 import { State, getPackages } from '../state/package.reducer';
 import * as PackageActions from '../state/package.actions';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-packagelist',
@@ -23,6 +24,7 @@ export class PackagelistComponent implements OnInit {
   totalRecords: number;
   packageForm: FormGroup;
   columns: any = [];
+  isFiltered = false;
 
   constructor(
     private packageDataService: PackageDataService,
@@ -59,6 +61,11 @@ export class PackagelistComponent implements OnInit {
       { field: 'status', header: 'Status' },
       { field: '', header: 'GeoLocation' },
     ];
+
+    const trackingNumberControl = this.packageForm.get('trackingNumber');
+    trackingNumberControl.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe((_value) => this.isFiltered = trackingNumberControl.value ? true : false);
   }
 
   loadPackages(event: LazyLoadEvent) {
@@ -140,5 +147,10 @@ export class PackagelistComponent implements OnInit {
     );
     const isSelected = resultPackage ? true : false;
     return isSelected;
+  }
+
+  resetForm(): void {
+    this.packageForm.get('trackingNumber').setValue('');
+    this.onFilter();
   }
 }

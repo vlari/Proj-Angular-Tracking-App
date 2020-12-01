@@ -15,6 +15,16 @@
               <button type="submit" nbButton status="primary">
                 <nb-icon icon="search"></nb-icon>
               </button>
+              <button
+                class="btn-reset"
+                *ngIf="isFiltered"
+                type="button"
+                nbButton
+                status="warning"
+                (click)="resetForm()"
+              >
+                <nb-icon icon="refresh"></nb-icon>
+              </button>
             </form>
           </div>
         </div>
@@ -24,7 +34,7 @@
         [value]="packages"
         [lazy]="true"
         [paginator]="true"
-        [rows]="3"
+        [rows]="10"
         [totalRecords]="totalRecords"
         (onLazyLoad)="loadPackages($event)"
         [columns]="columns"

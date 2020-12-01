@@ -13,6 +13,7 @@ import {
   NbCheckboxModule,
   NbDatepickerModule,
   NbDialogModule,
+  NbFormFieldModule,
   NbIconModule,
   NbInputModule,
   NbSelectModule,
@@ -47,6 +48,7 @@ import { OrderpackagelistComponent } from './orderpackagelist/orderpackagelist.c
     NbTooltipModule,
     DynamicDialogModule,
     NbDatepickerModule,
+    NbFormFieldModule,
     StoreModule.forFeature('order', orderReducer)
   ],
   entryComponents: [OrderpackagelistComponent],
