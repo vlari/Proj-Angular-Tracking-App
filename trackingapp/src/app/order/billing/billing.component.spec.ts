@@ -16,7 +16,7 @@ describe('BillingComponent', () => {
     TestBed.configureTestingModule({
       imports: [ ReactiveFormsModule, HttpClientModule, StoreModule.forRoot({}), StoreModule.forFeature('order', orderReducer) ],
       declarations: [ BillingComponent ],
-      providers: [ SystemService, NbToastrService ]
+      providers: [ SystemService, { providers: NbToastrService, useValue: {}} ]
     })
     .compileComponents();
   }));

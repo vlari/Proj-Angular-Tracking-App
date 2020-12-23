@@ -79,7 +79,7 @@ export class AuthDataService {
   }
 
   signOut() {
-    this.cookieService.deleteAll();
+    this.cookieService.delete('userToken', '/');
     this.store.dispatch(AuthActions.deleteSession());
   }
 

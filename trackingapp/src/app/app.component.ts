@@ -47,11 +47,7 @@ export class AppComponent implements OnInit {
           link: 'orders/list',
         },
       ],
-    },
-    {
-      title: 'Delivery',
-      icon: 'car',
-    },
+    }
   ];
   currentUser;
 

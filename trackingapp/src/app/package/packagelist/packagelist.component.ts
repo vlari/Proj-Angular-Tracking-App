@@ -59,7 +59,7 @@ export class PackagelistComponent implements OnInit {
       { field: 'weight', header: 'Weight' },
       { field: 'service', header: 'Service' },
       { field: 'status', header: 'Status' },
-      { field: '', header: 'GeoLocation' },
+      // { field: '', header: 'GeoLocation' },
     ];
 
     const trackingNumberControl = this.packageForm.get('trackingNumber');

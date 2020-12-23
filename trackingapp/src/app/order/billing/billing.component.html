@@ -79,48 +79,18 @@
             </nb-card>
 
             <div class="row end-xs">
-              <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <div class="box">
                   <nb-card accent="primary">
                     <nb-card-body>
-                      <ul class="order-price-description">
-                        <li>
-                          <nb-form-field>
-                            Sub
-                            <input
-                              class="detail-result"
-                              nbInput
-                              status="basic"
-                              formControlName="subtotal"
-                              [readOnly]="isDetailDisabled"
-                            />
-                          </nb-form-field>
-                        </li>
-                        <li>
-                          <nb-form-field>
-                            Tax
-                            <input
-                              class="detail-result"
-                              nbInput
-                              status="basic"
-                              formControlName="salesTax"
-                              [readOnly]="isDetailDisabled"
-                            />
-                          </nb-form-field>
-                        </li>
-                        <li>
-                          <nb-form-field>
-                            Total
-                            <input
-                              class="detail-result"
-                              nbInput
-                              status="basic"
-                              formControlName="total"
-                              [readOnly]="isDetailDisabled"
-                            />
-                          </nb-form-field>
-                        </li>
-                      </ul>
+                      Total
+                      <input
+                        class="detail-result"
+                        nbInput
+                        status="basic"
+                        formControlName="total"
+                        [readOnly]="isDetailDisabled"
+                      />
                     </nb-card-body>
                   </nb-card>
                 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemService } from 'src/app/core/services/system.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class RatecalculatorComponent implements OnInit {
   rateForm: FormGroup;
   facilities: any;
   rateResult = null;
-  totalRate = 0;
+  totalRate: string = '0';
   columns;
 
   constructor(private fb: FormBuilder, private systemService: SystemService) {}
@@ -25,12 +25,12 @@ export class RatecalculatorComponent implements OnInit {
     );
 
     this.rateForm = this.fb.group({
-      merchValue: ['', [Validators.required, Validators.min(1)]],
-      weight: ['', [Validators.required, Validators.min(1)]],
+      merchValue: ['', [Validators.required, Validators.min(1), this.validateNumberInput]  ],
+      weight: ['', [Validators.required, Validators.min(1), this.validateNumberInput]],
       dimensions: this.fb.group({
-        length: [0, [Validators.required, Validators.min(1)]],
-        width: [0, [Validators.required, Validators.min(1)]],
-        height: [0, [Validators.required, Validators.min(1)]],
+        length: ['', [Validators.required, Validators.min(1), this.validateNumberInput]],
+        width: ['', [Validators.required, Validators.min(1), this.validateNumberInput]],
+        height: ['', [Validators.required, Validators.min(1), this.validateNumberInput]],
       }),
       destination: [1, Validators.required],
     });
@@ -63,7 +63,7 @@ export class RatecalculatorComponent implements OnInit {
 
       const products = this.systemService.getProducts();
 
-      let total = 0;
+      let total: number = 0;
 
       products.forEach((p) => {
         p.gross = gross;
@@ -72,7 +72,17 @@ export class RatecalculatorComponent implements OnInit {
       });
 
       this.rateResult = products;
-      this.totalRate = total;
+      this.totalRate = total.toFixed(2).toString();
     }
+  }
+
+  validateNumberInput(c: AbstractControl): { [key: string]: boolean } | null {
+    let regex = /^[1-9]+[0-9]*$/;
+
+    if (regex.test(c.value)) {
+      return null;
+    }
+
+    return { match: true };
   }
 }
